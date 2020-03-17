@@ -1,0 +1,137 @@
+{
+  "name": "PizzaShackAPI",
+  "description": "This is a simple API for Pizza Shack online pizza delivery store.",
+  "context": "/pizzashack",
+  "version": "1.0.0",
+  "provider": "admin",
+  "lifeCycleStatus": "PUBLISHED",
+  "wsdlInfo": null,
+  "responseCachingEnabled": false,
+  "cacheTimeout": 300,
+  "destinationStatsEnabled": null,
+  "hasThumbnail": null,
+  "isDefaultVersion": false,
+  "enableSchemaValidation": false,
+  "type": "HTTP",
+  "transport": [
+    "http",
+    "https"
+  ],
+  "tags": [
+    "pizza"
+  ],
+  "policies": [
+    "Unlimited"
+  ],
+  "apiThrottlingPolicy": "Unlimited",
+  "authorizationHeader": "Authorization",
+  "securityScheme": [
+    "oauth2",
+    "oauth_basic_auth_api_key_mandatory"
+  ],
+  "maxTps": null,
+  "visibility": "PUBLIC",
+  "visibleRoles": [],
+  "visibleTenants": [],
+  "endpointSecurity": null,
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ],
+  "labels": [],
+  "mediationPolicies": [],
+  "subscriptionAvailability": "ALL_TENANTS",
+  "subscriptionAvailableTenants": [],
+  "additionalProperties": {},
+  "monetization": null,
+  "accessControl": "NONE",
+  "accessControlRoles": [],
+  "businessInformation": {
+    "businessOwner": "Jane Roe",
+    "businessOwnerEmail": "marketing@pizzashack.com",
+    "technicalOwner": "John Doe",
+    "technicalOwnerEmail": "architecture@pizzashack.com"
+  },
+  "corsConfiguration": {
+    "corsConfigurationEnabled": false,
+    "accessControlAllowOrigins": [
+      "*"
+    ],
+    "accessControlAllowCredentials": false,
+    "accessControlAllowHeaders": [
+      "authorization",
+      "Access-Control-Allow-Origin",
+      "Content-Type",
+      "SOAPAction"
+    ],
+    "accessControlAllowMethods": [
+      "GET",
+      "PUT",
+      "POST",
+      "DELETE",
+      "PATCH",
+      "OPTIONS"
+    ]
+  },
+  "workflowStatus": null,
+  "createdTime": "2019-11-25 10:05:02.015",
+  "lastUpdatedTime": "2019-11-25 10:05:05.397",
+  "endpointConfig": {
+    "endpoint_type": "http",
+    "sandbox_endpoints": {
+      "url": "$prod_endpoint"
+    },
+    "production_endpoints": {
+      "url": "$prod_endpoint"
+    }
+  },
+  "endpointImplementationType": "ENDPOINT",
+  "scopes": [],
+  "operations": [
+    {
+      "id": "",
+      "target": "/order",
+      "verb": "POST",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": []
+    },
+    {
+      "id": "",
+      "target": "/order/{orderId}",
+      "verb": "PUT",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": []
+    },
+    {
+      "id": "",
+      "target": "/menu",
+      "verb": "GET",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": []
+    },
+    {
+      "id": "",
+      "target": "/order/{orderId}",
+      "verb": "DELETE",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": []
+    },
+    {
+      "id": "",
+      "target": "/order/{orderId}",
+      "verb": "GET",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": []
+    }
+  ],
+  "threatProtectionPolicies": null
+}

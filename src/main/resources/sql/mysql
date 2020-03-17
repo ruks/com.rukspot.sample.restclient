@@ -1,0 +1,9 @@
+drop database amdb_1;
+create database amdb_1;
+
+drop database sharedDB_1;
+create database sharedDB_1;
+
+drop database APIM_ANALYTICS_DB_1;
+create database APIM_ANALYTICS_DB_1;
+
