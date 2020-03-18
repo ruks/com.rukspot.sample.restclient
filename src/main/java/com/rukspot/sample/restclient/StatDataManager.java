@@ -46,7 +46,7 @@ public class StatDataManager {
                 Settings.AM_HOME + "/repository/resources/security/client-truststore.jks");
         System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
 
-        TenantMgt tenantMgt = new TenantMgt("admin", PASS, Settings.BASE_URL);
+        TenantMgt tenantMgt = new TenantMgt("admin", PASS, Settings.BASE_ADMIN_URL);
         for (Tenant tenant : Arrays.asList(Tenant.values())) {
             String domain = tenant.name;
             System.out.println("Using tenant " + domain);
@@ -63,7 +63,7 @@ public class StatDataManager {
     }
 
     public static void generateTrafficForTenant(String user, String tenant) throws Exception {
-        UserMgt superUserMgt = new UserMgt(user, PASS, Settings.BASE_URL);
+        UserMgt superUserMgt = new UserMgt(user, PASS, Settings.BASE_ADMIN_URL);
         for (Publisher publisher : Arrays.asList(Publisher.values())) {
             superUserMgt.addUser(publisher.name, PASS, new String[] { "Internal/publisher", "Internal/creator" });
         }
@@ -92,12 +92,12 @@ public class StatDataManager {
                 new APPDev[] { new APPDev(Subscriber.SUB3, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
 
         generateTrafficForUser(set1, tenant);
-        generateTrafficForUser(set2, tenant);
-        generateTrafficForUser(set3, tenant);
-        generateTrafficForUser(set4, tenant);
-        generateTrafficForUser(set5, tenant);
-        generateTrafficForUser(set6, tenant);
-        generateTrafficForUser(set7, tenant);
+//        generateTrafficForUser(set2, tenant);
+//        generateTrafficForUser(set3, tenant);
+//        generateTrafficForUser(set4, tenant);
+//        generateTrafficForUser(set5, tenant);
+//        generateTrafficForUser(set6, tenant);
+//        generateTrafficForUser(set7, tenant);
     }
 
     public static void generateTrafficForUser(UserSet set, String tenant) throws Exception {

@@ -33,11 +33,6 @@ public class AdminClient {
     ApplicationPolicyCollectionApi policyCollectionApi;
 
     public AdminClient(String user, String pass) throws Exception {
-        System.setProperty("javax.net.ssl.keyStore", Settings.AM_HOME + "/repository/resources/security/wso2carbon.jks");
-        System.setProperty("javax.net.ssl.trustStore",
-                Settings.AM_HOME + "/repository/resources/security/client-truststore.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
-
         DCRClient dcrClient = new DCRClient();
         dcrClient.createOauthApp(user, "admin");
 
@@ -47,6 +42,7 @@ public class AdminClient {
         ApiClient apiAdminClient = new ApiClient();
         apiAdminClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
         apiAdminClient.setBasePath(Settings.BASE_URL + "/api/am/admin/v0.16");
+//        apiAdminClient.setBasePath("https://pub.apim.com:9443/api/am/admin/v0.16");
 
         policyCollectionApi = new ApplicationPolicyCollectionApi(apiAdminClient);
     }

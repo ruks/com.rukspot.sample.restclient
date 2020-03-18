@@ -34,11 +34,6 @@ public class PublisherClient {
     String version = "v1.1";
 
     public PublisherClient(String user, String pass) throws Exception {
-        System.setProperty("javax.net.ssl.keyStore", Settings.AM_HOME + "/repository/resources/security/wso2carbon.jks");
-        System.setProperty("javax.net.ssl.trustStore",
-                Settings.AM_HOME + "/repository/resources/security/client-truststore.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
-
         DCRClient dcrClient = new DCRClient();
         dcrClient.createOauthApp(user, "publisher");
 

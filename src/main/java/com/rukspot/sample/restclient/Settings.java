@@ -20,13 +20,18 @@
 package com.rukspot.sample.restclient;
 
 public class Settings {
-    public static String BASE_URL = "https://localhost:9443";
-    public static String AM_HOME = "/Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0";
+//    public static String BASE_URL = "https://localhost:9443";
+    public static String BASE_URL = "https://portals.apim.com";
+    public static String BASE_DCR_URL = "https://pub.apim.com:9443";
+    public static String BASE_ADMIN_URL = "https://km.apim.com:9443";
+//    public static String AM_HOME = "/Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0";
+    public static String AM_HOME = "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/AM_HOME";
     public static String APP_POLICY_1MIN = "1PerMin";
     public static String APP_POLICY_50MIN = "50PerMin";
     public static String ENDPOINT = "https://localhost:9443/am/sample/pizzashack/v1/api/";
     public static String ERROR_ENDPOINT = "https://localhost:9543/am/sample/pizzashack/v1/api/";
-    public static String GW_URL = "https://localhost:8243/";
+//    public static String GW_URL = "https://localhost:8243/";
+    public static String GW_URL = "https://apis.apim.com/";
 }
 
 enum Publisher {
@@ -90,8 +95,8 @@ enum Users {
 
 enum Tenant {
     CARBON_SUPER("carbon.super"),
-    WSO2_COM("wso2.com"),
-    APIM_COM("apim.com"),
+//    WSO2_COM("wso2.com"),
+//    APIM_COM("apim.com"),
     ;
 
     public String name;

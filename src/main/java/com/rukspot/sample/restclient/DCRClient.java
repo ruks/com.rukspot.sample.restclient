@@ -34,7 +34,6 @@ import java.util.Base64;
 
 public class DCRClient {
 
-    private String baseUrl = "https://localhost:9443";
     private String user = "admin";
     private String pass = "admin";
     private static String consumerKey;
@@ -42,7 +41,7 @@ public class DCRClient {
 
     public void createOauthApp(String owner, String appName) throws IOException {
         HttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(baseUrl + "/client-registration/v0.16/register");
+        HttpPost httpPost = new HttpPost(Settings.BASE_DCR_URL + "/client-registration/v0.16/register");
         String relativePath = "data" + File.separator + "dcr.json";
         String payload = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(relativePath), "UTF-8");
         JSONObject jsonObject = new JSONObject(payload);
