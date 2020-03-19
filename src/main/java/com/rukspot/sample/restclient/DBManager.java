@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -99,7 +100,7 @@ public class DBManager {
         }
     }
 
-    public static void mssql() {
+    public static void mssql1() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (ClassNotFoundException e) {
@@ -228,14 +229,45 @@ public class DBManager {
         return true;
     }
 
+    public static int findAppIDFromUUID(String uuid) throws Exception {
+        if(uuid == null || uuid.isEmpty()) {
+            return 0;
+        }
+        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        String DB_URL = "jdbc:mysql://db.apim.com:3306/amdb?useSSL=false";
+        String USER = "amuser";
+        String PASS = "Pass@123";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            String sql = "select APPLICATION_ID from AM_APPLICATION where UUID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, uuid);
+            rs=stmt.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } finally {
+            if(conn != null) {
+                conn.close();
+            }
+            if(stmt != null) {
+                stmt.close();
+            }
+            if(rs != null) {
+                rs.close();
+            }
+        }
+        System.out.println("couldn't find the app ID for " + uuid);
+        return -1;
+    }
+
     public static void main(String[] args) throws Exception {
 //        System.out.println("mysql");
 //        mysql();
 //        System.out.println();
-
-        System.out.println("mssql");
-        mssql();
-        System.out.println();
 
 //        System.out.println("oracle");
 //        oracle();
@@ -244,5 +276,7 @@ public class DBManager {
 //        System.out.println("postgre");
 //        postgre();
 //        System.out.println();
+        int a = findAppIDFromUUID("71f9d860-3ea8-4ccc-b12b-3be0062a8781");
+        System.out.println(a);
     }
 }

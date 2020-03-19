@@ -1,0 +1,39 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# exclude jar for gradle wrapper
+!gradle/wrapper/*.jar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# build files
+**/target
+target
+.gradle
+build
+src/gen
+.DS_Store
+DS_Store
+.idea/
+.swagger-codegen-ignore
+.swagger-codegen/
+.travis.yml
+build.gradle
+build.sbt
+com.rukspot.sample.restclient.iml
+dependency-reduced-pom.xml
+docs/
+git_push.sh
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+settings.gradle

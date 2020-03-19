@@ -20,6 +20,7 @@
 package com.rukspot.sample.analytics;
 
 import com.google.gson.Gson;
+import com.rukspot.sample.restclient.DBManager;
 import com.rukspot.sample.restclient.PublisherClient;
 import com.rukspot.sample.restclient.Settings;
 import org.apache.commons.io.FileUtils;
@@ -161,7 +162,13 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         stream.setApiTier("unlimited");
         stream.setApiVersion("1.0.0");
         stream.setApplicationConsumerKey(keyDTO.getConsumerKey());
-        stream.setApplicationId(appDto.getApplicationId());
+        int appID = -1;
+        try {
+            appID = DBManager.findAppIDFromUUID(appDto.getApplicationId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stream.setApplicationId(appID + "");
         stream.setApplicationName(appDto.getName());
         stream.setApplicationOwner(appDto.getOwner());
         stream.setBackendTime(System.currentTimeMillis());
@@ -199,7 +206,13 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         stream.setApiCreatorTenantDomain(tenant);
         stream.setApiCreator(apidto.getProvider());
         stream.setVersion(apidto.getVersion());
-        stream.setApplicationId(appDto.getApplicationId());
+        int appID = -1;
+        try {
+            appID = DBManager.findAppIDFromUUID(appDto.getApplicationId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stream.setApplicationId(appID + "");
         stream.setApplicationName(appDto.getName());
         stream.setSubscriber(appDto.getOwner());
         stream.setThrottledTime(System.currentTimeMillis());
@@ -226,7 +239,13 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         stream.setApiResourcePath("/menu");
         stream.setApiVersion("1.0.0");
         stream.setApplicationConsumerKey(keyDTO.getConsumerKey());
-        stream.setApplicationId(appDto.getApplicationId());
+        int appID = -1;
+        try {
+            appID = DBManager.findAppIDFromUUID(appDto.getApplicationId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stream.setApplicationId(appID + "");
         stream.setApplicationName(appDto.getName());
         stream.setMetaClientType("");
         stream.setProtocol("");
@@ -381,8 +400,8 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         System.setProperty("carbon.home", Settings.AM_HOME);
         String serverUser = "admin";
         String serverPassword = "admin";
-        String serverURL = "tcp://localhost:7612";
-        String serverAuthURL = "ssl://localhost:7712";
+        String serverURL = "tcp://analytics.apim.com:7612";
+        String serverAuthURL = "ssl://analytics.apim.com:7712";
 
         try {
             this.dataPublisher = new DataPublisher(null, serverURL, serverAuthURL, serverUser, serverPassword);
