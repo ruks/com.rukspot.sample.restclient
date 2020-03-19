@@ -25,7 +25,7 @@ public class Settings {
     public static String BASE_DCR_URL = "https://pub.apim.com:9443";
     public static String BASE_ADMIN_URL = "https://km.apim.com:9443";
 //    public static String AM_HOME = "/Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0";
-    public static String AM_HOME = "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/AM_HOME";
+    public static String AM_HOME = "/mnt/apim-tm/wso2am-3.1.0";
     public static String APP_POLICY_1MIN = "1PerMin";
     public static String APP_POLICY_50MIN = "50PerMin";
     public static String ENDPOINT = "https://localhost:9443/am/sample/pizzashack/v1/api/";
@@ -94,7 +94,8 @@ enum Users {
 }
 
 enum Tenant {
-    CARBON_SUPER("carbon.super"),
+//    CARBON_SUPER("carbon.super"),
+    TEST1_com("test1.com"),
 //    WSO2_COM("wso2.com"),
 //    APIM_COM("apim.com"),
     ;

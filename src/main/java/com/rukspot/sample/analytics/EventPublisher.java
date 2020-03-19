@@ -364,6 +364,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
 
     @Override
     public void init() {
+//        Settings.AM_HOME = "/mnt/apim-tm/wso2am-3.1.0-SNAPSHOT";
         try {
             loadAndPublishResponseEvent();
             loadAndPublishThrottleEvent();
