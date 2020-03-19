@@ -96,7 +96,7 @@ enum Users {
 enum Tenant {
 //    CARBON_SUPER("carbon.super"),
 //    TEST1_com("test1.com"),
-    TEST1_com("test2.com"),
+    TEST2_com("test2.com"),
 //    WSO2_COM("wso2.com"),
 //    APIM_COM("apim.com"),
     ;
