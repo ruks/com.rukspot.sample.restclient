@@ -92,12 +92,12 @@ public class StatDataManager {
                 new APPDev[] { new APPDev(Subscriber.SUB3, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
 
         generateTrafficForUser(set1, tenant);
-//        generateTrafficForUser(set2, tenant);
-//        generateTrafficForUser(set3, tenant);
-//        generateTrafficForUser(set4, tenant);
-//        generateTrafficForUser(set5, tenant);
-//        generateTrafficForUser(set6, tenant);
-//        generateTrafficForUser(set7, tenant);
+        generateTrafficForUser(set2, tenant);
+        generateTrafficForUser(set3, tenant);
+        generateTrafficForUser(set4, tenant);
+        generateTrafficForUser(set5, tenant);
+        generateTrafficForUser(set6, tenant);
+        generateTrafficForUser(set7, tenant);
     }
 
     public static void generateTrafficForUser(UserSet set, String tenant) throws Exception {

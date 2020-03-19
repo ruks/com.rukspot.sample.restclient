@@ -66,6 +66,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
     static List<RequestResponseStreamDTO> responseList = new ArrayList<>();
     static List<FaultPublisherDTO> faultList = new ArrayList<>();
     static List<ThrottlePublisherDTO> throttleList = new ArrayList<>();
+    static String fsBase = "/home/ubuntu/com.rukspot.sample.restclient/src/main/resources/analytics_data";
 
     public static void main(String[] args) {
         APIMgtUsageDataPublisher publisher = new EventPublisher();
@@ -105,8 +106,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
     }
 
     public static void loadAndPublishResponseEvent() throws Exception {
-        File dir = new File(
-                "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/analytics_data/response");
+        File dir = new File(fsBase + "/response");
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File file : files) {
             if(file.getName().contains(".DS_Store")) {
@@ -119,8 +119,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
     }
 
     public static void loadAndPublishFaultEvent() throws Exception {
-        File dir = new File(
-                "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/analytics_data/fault");
+        File dir = new File(fsBase + "/fault");
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File file : files) {
             if(file.getName().contains(".DS_Store")) {
@@ -135,8 +134,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
 
     public static void loadAndPublishThrottleEvent()
             throws Exception {
-        File dir = new File(
-                "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/analytics_data/throttle");
+        File dir = new File(fsBase + "/throttle");
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         for (File file : files) {
             if(file.getName().contains(".DS_Store")) {
