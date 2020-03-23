@@ -20,9 +20,10 @@
 package com.rukspot.sample.analytics;
 
 import com.google.gson.Gson;
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import com.rukspot.sample.restclient.DBManager;
 import com.rukspot.sample.restclient.PublisherClient;
-import com.rukspot.sample.restclient.Settings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -48,6 +49,7 @@ import org.wso2.carbon.databridge.agent.exception.DataEndpointAuthenticationExce
 import org.wso2.carbon.databridge.agent.exception.DataEndpointConfigurationException;
 import org.wso2.carbon.databridge.agent.exception.DataEndpointException;
 import org.wso2.carbon.databridge.commons.exception.TransportException;
+import org.wso2.uri.template.URITemplate;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +60,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
@@ -68,8 +72,9 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
     static List<FaultPublisherDTO> faultList = new ArrayList<>();
     static List<ThrottlePublisherDTO> throttleList = new ArrayList<>();
     static String fsBase = "/home/ubuntu/com.rukspot.sample.restclient/src/main/resources/analytics_data";
+    static Configurations configs;
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         APIMgtUsageDataPublisher publisher = new EventPublisher();
         publisher.init();
         Calendar calendar = Calendar.getInstance();
@@ -78,8 +83,8 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         int hoursPerDay = 24;
 
         for (int i = 0; i < oldDays; i++) {
+            calendar.add(Calendar.DATE, -i);
             for (int j = 0; j < hoursPerDay; j++) {
-                calendar.add(Calendar.DATE, -i);
                 calendar.add(Calendar.HOUR, -j);
                 long requestTime = calendar.getTime().getTime();
 
@@ -173,7 +178,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         stream.setApplicationOwner(appDto.getOwner());
         stream.setBackendTime(System.currentTimeMillis());
 
-        stream.setDestination(Settings.ENDPOINT);
+        stream.setDestination(configs.getApiEndpoint());
         stream.setExecutionTime(new ExecutionTimeDTO());
         stream.setMetaClientType("");
         stream.setProtocol("");
@@ -381,7 +386,9 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
 
     @Override
     public void init() {
-//        Settings.AM_HOME = "/mnt/apim-tm/wso2am-3.1.0-SNAPSHOT";
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
+
         try {
             loadAndPublishResponseEvent();
             loadAndPublishThrottleEvent();
@@ -391,13 +398,13 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         }
 
         System.setProperty("javax.net.ssl.keyStore",
-                Settings.AM_HOME + "/repository/resources/security/wso2carbon.jks");
+                configs.getAmHome() + "/repository/resources/security/wso2carbon.jks");
         System.setProperty("javax.net.ssl.trustStore",
-                Settings.AM_HOME + "/repository/resources/security/client-truststore.jks");
+                configs.getAmHome() + "/repository/resources/security/client-truststore.jks");
         System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
         System.setProperty("javax.net.ssl.trustStorePassword", "wso2carbon");
 
-        System.setProperty("carbon.home", Settings.AM_HOME);
+        System.setProperty("carbon.home", configs.getAmHome());
         String serverUser = "admin";
         String serverPassword = "admin";
         String serverURL = "tcp://analytics.apim.com:7612";
@@ -416,5 +423,13 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         } catch (DataEndpointAuthenticationException e) {
             log.error("Error while creating data publisher", e);
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        URITemplate templateToValidate = new URITemplate("/tenant-info/{username}");
+        Map<String, String> var = new HashMap<>();
+        String resource = "/tenant-info/YWRtaW4=";
+        boolean b = templateToValidate.matches(resource, var);
+        System.out.println(b);
     }
 }

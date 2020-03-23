@@ -19,6 +19,8 @@
 
 package com.rukspot.sample.restclient;
 
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import org.wso2.am.integration.clients.publisher.api.ApiClient;
 import org.wso2.am.integration.clients.publisher.api.v1.ApIsApi;
 import org.wso2.am.integration.clients.publisher.api.v1.ApiLifecycleApi;
@@ -31,18 +33,19 @@ public class PublisherClient {
     ApIsApi apIsApi;
     ApiLifecycleApi lifecycleApi;
     static Token token;
-    String version = "v1.1";
+    Configurations configs;
 
     public PublisherClient(String user, String pass) throws Exception {
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
         DCRClient dcrClient = new DCRClient();
         dcrClient.createOauthApp(user, "publisher");
 
         token = new Token();
-        String scopes = "apim:api_view apim:api_create apim:api_publish apim:api_delete";
-        String accessToken = token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(), scopes);
+        String accessToken = token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(), configs.getApiDeveloperScopes());
         ApiClient apiPublisherClient = new ApiClient();
         apiPublisherClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-        apiPublisherClient.setBasePath(Settings.BASE_URL + "/api/am/publisher/" + version);
+        apiPublisherClient.setBasePath(configs.getPublisherEndpoint());
 
         apIsApi = new ApIsApi(apiPublisherClient);
         lifecycleApi = new ApiLifecycleApi(apiPublisherClient);

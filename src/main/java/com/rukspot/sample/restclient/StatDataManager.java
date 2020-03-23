@@ -20,7 +20,10 @@
 package com.rukspot.sample.restclient;
 
 import com.google.gson.Gson;
-import com.rukspot.sample.analytics.EventPublisher;
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
+import com.rukspot.sample.configuration.models.Subscriptions;
+import com.rukspot.sample.configuration.models.UserTestCase;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
@@ -29,174 +32,90 @@ import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationDTO;
 import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationKeyDTO;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class StatDataManager {
     static Gson gson = new Gson();
 
-    static String PASS = "admin";
+    public static String PASS = "admin";
+    Configurations configs;
 
     public static void main(String[] args) throws Exception {
         System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
         final org.slf4j.Logger log = LoggerFactory.getLogger(StatDataManager.class);
 
-        System.setProperty("javax.net.ssl.keyStore",
-                Settings.AM_HOME + "/repository/resources/security/wso2carbon.jks");
-        System.setProperty("javax.net.ssl.trustStore",
-                Settings.AM_HOME + "/repository/resources/security/client-truststore.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
-
-        TenantMgt tenantMgt = new TenantMgt("admin", PASS, Settings.BASE_ADMIN_URL);
-        for (Tenant tenant : Arrays.asList(Tenant.values())) {
-            String domain = tenant.name;
-            System.out.println("Using tenant " + domain);
-            String admin = "admin";
-            if (domain != null && !"carbon.super".equalsIgnoreCase(domain)) {
-                tenantMgt.addTenant(tenant.toString(), PASS, "admin");
-                admin = "admin@" + domain;
-            }
-            AdminClient superClient = new AdminClient(admin, PASS);
-            superClient.createApplicationPolicy(Settings.APP_POLICY_1MIN);
-            generateTrafficForTenant(admin, domain);
-        }
-
+        StatDataManager manager = new StatDataManager();
+        manager.init();
     }
 
-    public static void generateTrafficForTenant(String user, String tenant) throws Exception {
-        UserMgt superUserMgt = new UserMgt(user, PASS, Settings.BASE_ADMIN_URL);
-        for (Publisher publisher : Arrays.asList(Publisher.values())) {
-            superUserMgt.addUser(publisher.name, PASS, new String[] { "Internal/publisher", "Internal/creator" });
+    public void init() throws Exception {
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
+
+        System.setProperty("javax.net.ssl.keyStore",
+                configs.getAmHome() + "/repository/resources/security/wso2carbon.jks");
+        System.setProperty("javax.net.ssl.trustStore",
+                configs.getAmHome() + "/repository/resources/security/client-truststore.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword", "wso2carbon");
+
+        TenantMgt tenantMgt = new TenantMgt("admin", PASS, configs.getAdminServiceBaseUrl());
+        for (String tenant : configs.getTenants()) {
+            System.out.println("Using tenant " + tenant);
+            String admin = "admin";
+            if (tenant != null && !"carbon.super".equalsIgnoreCase(tenant)) {
+                tenantMgt.addTenant(tenant, PASS, "admin");
+                admin = "admin@" + tenant;
+            }
+            AdminClient superClient = new AdminClient(admin, PASS);
+            superClient.createApplicationPolicy(configs.getAppThrottlePolicy());
+            generateTrafficForTenant(admin, tenant);
         }
-        for (Subscriber subscriber : Arrays.asList(Subscriber.values())) {
-            superUserMgt.addUser(subscriber.name, PASS, new String[] { "Internal/subscriber" });
+    }
+
+    public void generateTrafficForTenant(String user, String tenant) throws Exception {
+        UserMgt superUserMgt = new UserMgt(user, PASS, configs.getAdminServiceBaseUrl());
+        for (String publisher : configs.getApiDevelopers()) {
+            superUserMgt.addUser(publisher, PASS, configs.getApiDeveloperRoles().toArray(new String[] {}));
         }
-        for (Users users : Arrays.asList(Users.values())) {
-            superUserMgt.addUser(users.name, PASS, new String[] { "Internal/everyone" });
+        for (String subscriber : configs.getAppDevelopers()) {
+            superUserMgt.addUser(subscriber, PASS, configs.getAppDeveloperRoles().toArray(new String[] {}));
+        }
+        for (String users : configs.getApiUsers()) {
+            superUserMgt.addUser(users, PASS, configs.getApiUserRoles().toArray(new String[] {}));
         }
 
         //                clearAppsAndAPIs("admin","user2", null);
         //                clearAppsAndAPIs("admin","user2", Settings.TENANT_WSO2);
-        UserSet set1 = new UserSet(Publisher.PUB1,
-                new APPDev[] { new APPDev(Subscriber.SUB1, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set2 = new UserSet(Publisher.PUB2,
-                new APPDev[] { new APPDev(Subscriber.SUB1, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set3 = new UserSet(Publisher.PUB3,
-                new APPDev[] { new APPDev(Subscriber.SUB2, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set4 = new UserSet(Publisher.PUB4,
-                new APPDev[] { new APPDev(Subscriber.SUB2, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set5 = new UserSet(Publisher.PUB5,
-                new APPDev[] { new APPDev(Subscriber.SUB3, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set6 = new UserSet(Publisher.PUB6,
-                new APPDev[] { new APPDev(Subscriber.SUB3, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
-        UserSet set7 = new UserSet(Publisher.PUB7,
-                new APPDev[] { new APPDev(Subscriber.SUB3, new Users[] { Users.USER1, Users.USER2, Users.USER3 }) });
+        for (UserTestCase aCase : configs.getUserTestCases()) {
+            generateTrafficForUser(aCase, tenant);
+        }
 
-        generateTrafficForUser(set1, tenant);
-        generateTrafficForUser(set2, tenant);
-        generateTrafficForUser(set3, tenant);
-        generateTrafficForUser(set4, tenant);
-        generateTrafficForUser(set5, tenant);
-        generateTrafficForUser(set6, tenant);
-        generateTrafficForUser(set7, tenant);
     }
 
-    public static void generateTrafficForUser(UserSet set, String tenant) throws Exception {
+    public void generateTrafficForUser(UserTestCase aCase, String tenant) throws Exception {
 
-        PublisherClient publisherClient = new PublisherClient(set.publisher.getUsername(tenant), PASS);
-        DevPortalClient devPortalClient;
+        PublisherClient publisherClient =
+                new PublisherClient(Utils.getTeantUsername(aCase.getPublisher(), tenant), PASS);
         String relativePath = "data" + File.separator + "api.json";
         String originalPayload =
                 IOUtils.toString(PublisherClient.class.getClassLoader().getResourceAsStream(relativePath), "UTF-8");
-        APIDTO apidtoResponse;
         String payload;
         APIDTO apidto;
 
-        payload = originalPayload.replaceAll("\\$prod_endpoint", Settings.ENDPOINT);
+        payload = originalPayload.replaceAll("\\$prod_endpoint", configs.getApiEndpoint());
         apidto = gson.fromJson(payload, APIDTO.class);
-        System.out.println("Starting default");
-        for (int i = 0; i < 1; i++) {
-            String id = System.currentTimeMillis() + "";
-            apidtoResponse =
-                    publisherClient.createAndPublishAPI(apidto, "api_name_" + id, set.publisher.getUsername(tenant));
-            for (APPDev subscriber : set.subscribers) {
-                devPortalClient = new DevPortalClient(subscriber.getAppDev().getUsername(tenant), PASS);
-                ApplicationDTO appDto = devPortalClient.createApp("app_name_" + id, Settings.APP_POLICY_50MIN);
-                ApplicationKeyDTO keyDTO = devPortalClient.createSubscribe(appDto, apidtoResponse);
-                for (Users user : subscriber.endusers) {
-                    String accessToken = Token.getNewToken(user.getUsername(tenant), PASS, keyDTO.getConsumerKey(),
-                            keyDTO.getConsumerSecret(), null);
-                    String prefix=apidto.getProvider()+"-"+apidto.getName()+"-"+subscriber.getAppDev().getUsername(tenant)+"-"+"app_name_" + id+"-"+user;
-                    devPortalClient
-                            .invokeAPI(Settings.GW_URL + apidtoResponse.getContext() + "/1.0.0/menu", accessToken, 0, prefix);
-                    EventPublisher.saveResponse(apidto, appDto, keyDTO, tenant, user.getUsername(tenant));
-                }
-            }
-        }
+        apiTestCase(publisherClient, aCase, apidto, tenant, "default", configs.getDefaultThrottlePolicy());
 
-        System.out.println("Starting throttling");
-        payload = originalPayload.replaceAll("\\$prod_endpoint", Settings.ENDPOINT);
+        payload = originalPayload.replaceAll("\\$prod_endpoint", configs.getApiEndpoint());
         apidto = gson.fromJson(payload, APIDTO.class);
-        for (int i = 0; i < 1; i++) {
-            String id = System.currentTimeMillis() + "";
-            String apiName = "throttle_api_name_" + id;
-            String appName = "throttle_app_name_" + id;
-            apidtoResponse =
-                    publisherClient.createAndPublishAPI(apidto, apiName + id, set.publisher.getUsername(tenant));
-            for (APPDev subscriber : set.subscribers) {
-                devPortalClient = new DevPortalClient(subscriber.getAppDev().getUsername(tenant), PASS);
-                ApplicationDTO appDto = devPortalClient.createApp(appName + id, Settings.APP_POLICY_1MIN);
-                ApplicationKeyDTO keyDTO = devPortalClient.createSubscribe(appDto, apidtoResponse);
+        apiTestCase(publisherClient, aCase, apidto, tenant, "throttle", configs.getAppThrottlePolicy());
 
-                for (Users user : subscriber.endusers) {
-                    String accessToken = Token.getNewToken(user.getUsername(tenant), PASS, keyDTO.getConsumerKey(),
-                            keyDTO.getConsumerSecret(), null);
-                    String prefix=apidto.getProvider()+"-"+apidto.getName()+"-"+subscriber.getAppDev().getUsername(tenant)+"-"+"app_name_" + id+"-"+user;
-                    devPortalClient
-                            .invokeAPI(Settings.GW_URL + apidtoResponse.getContext() + "/1.0.0/menu", accessToken, 2, prefix);
-                    EventPublisher.saveThrottle(apidto, appDto, keyDTO, tenant, user.getUsername(tenant));
-                }
-            }
-        }
-
-        System.out.println("Starting faulty");
-        payload = originalPayload.replaceAll("\\$prod_endpoint", Settings.ERROR_ENDPOINT);
+        payload = originalPayload.replaceAll("\\$prod_endpoint", configs.getFaultyApiEndpoint());
         apidto = gson.fromJson(payload, APIDTO.class);
-        for (int i = 0; i < 1; i++) {
-            String id = System.currentTimeMillis() + "";
-            apidtoResponse = publisherClient
-                    .createAndPublishAPI(apidto, "faulty_api_name_" + id, set.publisher.getUsername(tenant));
-            for (APPDev subscriber : set.subscribers) {
-                devPortalClient = new DevPortalClient(subscriber.getAppDev().getUsername(tenant), PASS);
-                ApplicationDTO appDto = devPortalClient.createApp("faulty_app_name_" + id, Settings.APP_POLICY_50MIN);
-                ApplicationKeyDTO keyDTO = devPortalClient.createSubscribe(appDto, apidtoResponse);
-                for (Users user : subscriber.endusers) {
-                    String accessToken = Token.getNewToken(user.getUsername(tenant), PASS, keyDTO.getConsumerKey(),
-                            keyDTO.getConsumerSecret(), null);
-                    String prefix=apidto.getProvider()+"-"+apidto.getName()+"-"+subscriber.getAppDev().getUsername(tenant)+"-"+"app_name_" + id+"-"+user;
-                    devPortalClient
-                            .invokeAPI(Settings.GW_URL + apidtoResponse.getContext() + "/1.0.0/menu", accessToken, 0, prefix);
-                    EventPublisher.saveFaulty(apidto, appDto, keyDTO, tenant, user.getUsername(tenant));
-                }
-            }
-        }
+        apiTestCase(publisherClient, aCase, apidto, tenant, "faulty", configs.getDefaultThrottlePolicy());
 
-        System.out.println("Starting non auth");
-        payload = originalPayload.replaceAll("\\$prod_endpoint", Settings.ENDPOINT);
+        payload = originalPayload.replaceAll("\\$prod_endpoint", configs.getApiEndpoint());
         apidto = gson.fromJson(payload, APIDTO.class);
-        for (int i = 0; i < 1; i++) {
-            String id = System.currentTimeMillis() + "";
-            for (APIOperationsDTO dto : apidto.getOperations()) {
-                dto.setAuthType("None");
-            }
-            apidtoResponse = publisherClient
-                    .createAndPublishAPI(apidto, "noauth_api_name_" + id, set.publisher.getUsername(tenant));
-            for (APPDev subscriber : set.subscribers) {
-                devPortalClient = new DevPortalClient(subscriber.getAppDev().getUsername(tenant), PASS);
-                String prefix=apidto.getProvider()+"-"+apidto.getName()+"-"+subscriber.getAppDev().getUsername(tenant)+"-anonymous";
-                devPortalClient.invokeAPI(Settings.GW_URL + apidtoResponse.getContext() + "/1.0.0/menu", null, 0, prefix);
-                EventPublisher.saveNonAuth(apidto, tenant);
-            }
-        }
+        apiTestCase(publisherClient, aCase, apidto, tenant, "no_auth", configs.getDefaultThrottlePolicy());
 
     }
 
@@ -211,6 +130,43 @@ public class StatDataManager {
         publisherClient.cleanAPis();
     }
 
+    public void apiTestCase(PublisherClient publisherClient, UserTestCase aCase, APIDTO apidto, String tenant,
+            String prefix, String appPolicy) throws Exception {
+        System.out.println("Starting " + prefix);
+        int delay = 0;
+        String id = System.currentTimeMillis() + "";
+        String appName = prefix + "_app_" + id;
+        String apiName = prefix + "_api_" + id;
+        if ("throttle".equalsIgnoreCase(prefix)) {
+            delay = 2;
+        } else if ("no_auth".equalsIgnoreCase(prefix)) {
+            for (APIOperationsDTO dto : apidto.getOperations()) {
+                dto.setAuthType("None");
+            }
+            appName = prefix;
+        }
+
+        APIDTO apidtoResponse = publisherClient
+                .createAndPublishAPI(apidto, apiName, Utils.getTeantUsername(aCase.getPublisher(), tenant));
+        for (Subscriptions subscription : aCase.getSubscriptions()) {
+            DevPortalClient devPortalClient =
+                    new DevPortalClient(Utils.getTeantUsername(subscription.getSubscriber(), tenant), PASS);
+            ApplicationDTO appDto = devPortalClient.createApp(appName, appPolicy);
+            ApplicationKeyDTO keyDTO = devPortalClient.createSubscribe(appDto, apidtoResponse);
+            for (String user : subscription.getUsers()) {
+                String accessToken =
+                        Token.getNewToken(Utils.getTeantUsername(user, tenant), PASS, keyDTO.getConsumerKey(),
+                                keyDTO.getConsumerSecret(), null);
+                String logPrefix =
+                        apidto.getProvider() + "-" + apidto.getName() + "-" + Utils.getTeantUsername(user, tenant) + "-"
+                                + appName + "-" + user;
+                devPortalClient
+                        .invokeAPI(configs.getGwEndpoint() + apidtoResponse.getContext() + "/1.0.0/menu", accessToken,
+                                delay, logPrefix);
+                //                    EventPublisher.saveResponse(apidto, appDto, keyDTO, tenant, user.getUsername(tenant));
+            }
+        }
+    }
 }
 
 

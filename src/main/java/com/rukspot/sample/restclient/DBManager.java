@@ -230,7 +230,7 @@ public class DBManager {
     }
 
     public static int findAppIDFromUUID(String uuid) throws Exception {
-        if(uuid == null || uuid.isEmpty()) {
+        if(uuid == null || uuid == "0" || uuid.isEmpty()) {
             return 0;
         }
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());

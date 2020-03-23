@@ -20,14 +20,14 @@
 package com.rukspot.sample.restclient;
 
 import com.google.gson.Gson;
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
 import org.wso2.am.integration.clients.store.api.ApiClient;
 import org.wso2.am.integration.clients.store.api.v1.ApIsApi;
@@ -53,6 +53,7 @@ public class DevPortalClient {
     SubscriptionsApi subscriptionsApi;
     static Gson gson = new Gson();
     String version = "v1.1";
+    Configurations configs;
 
     public void invokeAPI(String url, String token, int delay, String prefix) throws Exception {
         int timeout = 3;
@@ -83,18 +84,19 @@ public class DevPortalClient {
     }
 
     public DevPortalClient(String user, String pass) throws Exception {
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
 
         DCRClient dcrClient = new DCRClient();
         dcrClient.createOauthApp(user, "devportal");
 
         token = new Token();
-        String scopes = "apim:subscribe apim:app_manage apim:sub_manage";
         String accessToken =
-                token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(), scopes);
+                token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(), configs.getAppDeveloperScopes());
 
         ApiClient apiStoreClient = new ApiClient();
         apiStoreClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-        apiStoreClient.setBasePath(Settings.BASE_URL + "/api/am/store/" + version);
+        apiStoreClient.setBasePath(configs.getDevPortalEndpoint());
 
         keysApi = new ApplicationKeysApi(apiStoreClient);
         applicationsApi = new ApplicationsApi(apiStoreClient);

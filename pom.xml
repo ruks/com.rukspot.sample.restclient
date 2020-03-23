@@ -147,10 +147,33 @@
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
+        <dependency>
+            <groupId>org.wso2.uri.template</groupId>
+            <artifactId>wso2-uri-templates</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.config</groupId>
+            <artifactId>org.wso2.carbon.config</artifactId>
+            <version>${wso2.carbon.config.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.wso2.carbon.config</groupId>
+                <artifactId>org.wso2.carbon.config.maven.plugin</artifactId>
+                <version>${wso2.carbon.config.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>create-doc</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
@@ -268,5 +291,6 @@
     <properties>
         <microservice.mainClass>org.example.service.Application</microservice.mainClass>
         <carbon.apimgt.version>6.6.141</carbon.apimgt.version>
+        <wso2.carbon.config.version>2.1.5</wso2.carbon.config.version>
     </properties>
 </project>

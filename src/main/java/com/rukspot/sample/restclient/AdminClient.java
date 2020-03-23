@@ -19,6 +19,8 @@
 
 package com.rukspot.sample.restclient;
 
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import org.wso2.am.integration.clients.admin.api.ApiClient;
 import org.wso2.am.integration.clients.admin.api.ApiException;
 import org.wso2.am.integration.clients.admin.api.v16.ApplicationPolicyCollectionApi;
@@ -31,24 +33,25 @@ import java.util.List;
 
 public class AdminClient {
     ApplicationPolicyCollectionApi policyCollectionApi;
+    Configurations configs;
 
     public AdminClient(String user, String pass) throws Exception {
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
         DCRClient dcrClient = new DCRClient();
         dcrClient.createOauthApp(user, "admin");
 
         Token token = new Token();
-        String accessToken =
-                token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(), "apim:tier_manage apim:tier_view");
+        String accessToken = token.getNewToken(user, pass, dcrClient.getConsumerKey(), dcrClient.getConsumerSecret(),
+                configs.getAdminScopes());
         ApiClient apiAdminClient = new ApiClient();
         apiAdminClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
-        apiAdminClient.setBasePath(Settings.BASE_URL + "/api/am/admin/v0.16");
-//        apiAdminClient.setBasePath("https://pub.apim.com:9443/api/am/admin/v0.16");
-
+        apiAdminClient.setBasePath(configs.getAdminEndpoint());
         policyCollectionApi = new ApplicationPolicyCollectionApi(apiAdminClient);
     }
 
     public void createApplicationPolicy(String name) throws ApiException {
-        if(isApplicationPolicyExist(name)) {
+        if (isApplicationPolicyExist(name)) {
             return;
         }
         ApplicationThrottlePolicyDTO dto = new ApplicationThrottlePolicyDTO();
@@ -61,28 +64,23 @@ public class AdminClient {
         limitDTO.setType(ThrottleLimitDTO.TypeEnum.REQUESTCOUNTLIMIT);
         dto.setDefaultLimit(limitDTO);
 
-        policyCollectionApi.throttlingPoliciesApplicationPost(dto,"application/json");
+        policyCollectionApi.throttlingPoliciesApplicationPost(dto, "application/json");
     }
 
     public List<ApplicationThrottlePolicyDTO> getApplicationPolicy() throws ApiException {
-        ApplicationThrottlePolicyListDTO
-                applicationThrottlePolicyListDTO = policyCollectionApi.throttlingPoliciesApplicationGet(null, null, null);
+        ApplicationThrottlePolicyListDTO applicationThrottlePolicyListDTO =
+                policyCollectionApi.throttlingPoliciesApplicationGet(null, null, null);
         return applicationThrottlePolicyListDTO.getList();
     }
 
     public boolean isApplicationPolicyExist(String name) throws ApiException {
         List<ApplicationThrottlePolicyDTO> list = getApplicationPolicy();
         for (ApplicationThrottlePolicyDTO dto : list) {
-            if(dto.getPolicyName().equalsIgnoreCase(name)) {
+            if (dto.getPolicyName().equalsIgnoreCase(name)) {
                 return true;
             }
         }
         return false;
-    }
-    public static void main(String[] args) throws Exception {
-        AdminClient adminClient = new AdminClient("admin" ,"admin");
-//        adminClient.createApplicationPolicy();
-        System.out.println(adminClient.isApplicationPolicyExist("1PerMin"));
     }
 
 }

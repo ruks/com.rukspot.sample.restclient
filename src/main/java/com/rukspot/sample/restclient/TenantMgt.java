@@ -73,8 +73,4 @@ public class TenantMgt {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        TenantMgt tenantMgt = new TenantMgt("admin", "admin", Settings.BASE_URL);
-    }
-
 }

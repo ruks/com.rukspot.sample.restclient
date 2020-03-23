@@ -19,6 +19,8 @@
 
 package com.rukspot.sample.restclient;
 
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -38,10 +40,16 @@ public class DCRClient {
     private String pass = "admin";
     private static String consumerKey;
     private static String consumerSecret;
+    Configurations configs;
+
+    public DCRClient() {
+        ConfigurationService service = ConfigurationService.getInstance();
+        configs = service.getConfigurations();
+    }
 
     public void createOauthApp(String owner, String appName) throws IOException {
         HttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(Settings.BASE_DCR_URL + "/client-registration/v0.16/register");
+        HttpPost httpPost = new HttpPost(configs.getDcrEndpoint());
         String relativePath = "data" + File.separator + "dcr.json";
         String payload = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(relativePath), "UTF-8");
         JSONObject jsonObject = new JSONObject(payload);

@@ -19,6 +19,8 @@
 
 package com.rukspot.sample.restclient;
 
+import com.rukspot.sample.configuration.ConfigurationService;
+import com.rukspot.sample.configuration.models.Configurations;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,8 +36,10 @@ import java.util.Base64;
 public class Token {
 
     public static String getNewToken(String user, String pass, String ck, String cs, String scope) throws IOException {
+        ConfigurationService service = ConfigurationService.getInstance();
+        Configurations configs = service.getConfigurations();
         HttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(Settings.BASE_URL + "/oauth2/token");
+        HttpPost httpPost = new HttpPost(configs.getTokenEndpoint());
         String payload = "grant_type=password&username="+user+"&password="+pass;
         if(scope != null) {
             payload += "&scope=" + scope;
