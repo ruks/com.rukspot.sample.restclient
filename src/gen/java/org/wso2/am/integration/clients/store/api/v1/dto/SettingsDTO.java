@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.wso2.am.integration.clients.store.api.v1.dto.SettingsIdentityProviderDTO;
 
 /**
  * SettingsDTO
@@ -54,6 +55,12 @@ public class SettingsDTO {
 
   @SerializedName("IsUnlimitedTierPaid")
   private Boolean isUnlimitedTierPaid = false;
+
+  @SerializedName("identityProvider")
+  private SettingsIdentityProviderDTO identityProvider = null;
+
+  @SerializedName("IsAnonymousModeEnabled")
+  private Boolean isAnonymousModeEnabled = true;
 
   public SettingsDTO grantTypes(List<String> grantTypes) {
     this.grantTypes = grantTypes;
@@ -215,6 +222,42 @@ public class SettingsDTO {
     this.isUnlimitedTierPaid = isUnlimitedTierPaid;
   }
 
+  public SettingsDTO identityProvider(SettingsIdentityProviderDTO identityProvider) {
+    this.identityProvider = identityProvider;
+    return this;
+  }
+
+   /**
+   * Get identityProvider
+   * @return identityProvider
+  **/
+  @ApiModelProperty(value = "")
+  public SettingsIdentityProviderDTO getIdentityProvider() {
+    return identityProvider;
+  }
+
+  public void setIdentityProvider(SettingsIdentityProviderDTO identityProvider) {
+    this.identityProvider = identityProvider;
+  }
+
+  public SettingsDTO isAnonymousModeEnabled(Boolean isAnonymousModeEnabled) {
+    this.isAnonymousModeEnabled = isAnonymousModeEnabled;
+    return this;
+  }
+
+   /**
+   * Get isAnonymousModeEnabled
+   * @return isAnonymousModeEnabled
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isIsAnonymousModeEnabled() {
+    return isAnonymousModeEnabled;
+  }
+
+  public void setIsAnonymousModeEnabled(Boolean isAnonymousModeEnabled) {
+    this.isAnonymousModeEnabled = isAnonymousModeEnabled;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -232,12 +275,14 @@ public class SettingsDTO {
         Objects.equals(this.apiGatewayEndpoint, settings.apiGatewayEndpoint) &&
         Objects.equals(this.monetizationEnabled, settings.monetizationEnabled) &&
         Objects.equals(this.recommendationEnabled, settings.recommendationEnabled) &&
-        Objects.equals(this.isUnlimitedTierPaid, settings.isUnlimitedTierPaid);
+        Objects.equals(this.isUnlimitedTierPaid, settings.isUnlimitedTierPaid) &&
+        Objects.equals(this.identityProvider, settings.identityProvider) &&
+        Objects.equals(this.isAnonymousModeEnabled, settings.isAnonymousModeEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(grantTypes, scopes, applicationSharingEnabled, mapExistingAuthApps, apiGatewayEndpoint, monetizationEnabled, recommendationEnabled, isUnlimitedTierPaid);
+    return Objects.hash(grantTypes, scopes, applicationSharingEnabled, mapExistingAuthApps, apiGatewayEndpoint, monetizationEnabled, recommendationEnabled, isUnlimitedTierPaid, identityProvider, isAnonymousModeEnabled);
   }
 
 
@@ -254,6 +299,8 @@ public class SettingsDTO {
     sb.append("    monetizationEnabled: ").append(toIndentedString(monetizationEnabled)).append("\n");
     sb.append("    recommendationEnabled: ").append(toIndentedString(recommendationEnabled)).append("\n");
     sb.append("    isUnlimitedTierPaid: ").append(toIndentedString(isUnlimitedTierPaid)).append("\n");
+    sb.append("    identityProvider: ").append(toIndentedString(identityProvider)).append("\n");
+    sb.append("    isAnonymousModeEnabled: ").append(toIndentedString(isAnonymousModeEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

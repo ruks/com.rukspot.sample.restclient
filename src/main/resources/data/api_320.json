@@ -1,0 +1,104 @@
+{
+  "name": "codeAPI",
+  "description": null,
+  "context": "/codeapi",
+  "version": "1.0.0",
+  "provider": "admin",
+  "lifeCycleStatus": "PUBLISHED",
+  "wsdlInfo": null,
+  "wsdlUrl": null,
+  "responseCachingEnabled": false,
+  "cacheTimeout": 300,
+  "destinationStatsEnabled": null,
+  "hasThumbnail": null,
+  "isDefaultVersion": false,
+  "enableSchemaValidation": false,
+  "type": "HTTP",
+  "transport": [
+    "http",
+    "https"
+  ],
+  "tags": [],
+  "policies": [
+    "Unlimited"
+  ],
+  "apiThrottlingPolicy": null,
+  "authorizationHeader": "Authorization",
+  "securityScheme": [
+    "oauth2",
+    "oauth_basic_auth_api_key_mandatory"
+  ],
+  "maxTps": null,
+  "visibility": "PUBLIC",
+  "visibleRoles": [],
+  "visibleTenants": [],
+  "endpointSecurity": null,
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ],
+  "labels": [],
+  "mediationPolicies": [],
+  "subscriptionAvailability": "ALL_TENANTS",
+  "subscriptionAvailableTenants": [],
+  "additionalProperties": {},
+  "monetization": null,
+  "accessControl": "NONE",
+  "accessControlRoles": [],
+  "businessInformation": {
+    "businessOwner": null,
+    "businessOwnerEmail": null,
+    "technicalOwner": null,
+    "technicalOwnerEmail": null
+  },
+  "corsConfiguration": {
+    "corsConfigurationEnabled": false,
+    "accessControlAllowOrigins": [
+      "*"
+    ],
+    "accessControlAllowCredentials": false,
+    "accessControlAllowHeaders": [
+      "authorization",
+      "Access-Control-Allow-Origin",
+      "Content-Type",
+      "SOAPAction",
+      "apikey"
+    ],
+    "accessControlAllowMethods": [
+      "GET",
+      "PUT",
+      "POST",
+      "DELETE",
+      "PATCH",
+      "OPTIONS"
+    ]
+  },
+  "workflowStatus": null,
+  "createdTime": "2020-06-04 00:15:42.954",
+  "lastUpdatedTime": "2020-06-04 00:16:04.87",
+  "endpointConfig": {
+    "endpoint_type": "http",
+    "sandbox_endpoints": {
+      "url": "http://localhost:9090/inventory/customers/"
+    },
+    "production_endpoints": {
+      "url": "http://localhost:9090/inventory/customers/"
+    }
+  },
+  "endpointImplementationType": "ENDPOINT",
+  "scopes": [],
+  "operations": [
+    {
+      "id": "",
+      "target": "/{code}",
+      "verb": "GET",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    }
+  ],
+  "threatProtectionPolicies": null,
+  "categories": []
+}

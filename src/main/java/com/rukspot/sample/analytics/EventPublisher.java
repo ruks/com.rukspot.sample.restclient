@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,42 +72,50 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
     static List<RequestResponseStreamDTO> responseList = new ArrayList<>();
     static List<FaultPublisherDTO> faultList = new ArrayList<>();
     static List<ThrottlePublisherDTO> throttleList = new ArrayList<>();
-    static String fsBase = "/home/ubuntu/com.rukspot.sample.restclient/src/main/resources/analytics_data";
+    static String fsBase = "/Users/rukshan/wso2/apim/com.rukspot.sample.restclient/src/main/resources/analytics_data";
     static Configurations configs;
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) throws Exception {
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
+
         APIMgtUsageDataPublisher publisher = new EventPublisher();
         publisher.init();
         Calendar calendar = Calendar.getInstance();
 
-        int oldDays = 30;
-        int hoursPerDay = 24;
+        int hoursPerDay = 2;
 
-        for (int i = 0; i < oldDays; i++) {
-            calendar.add(Calendar.DATE, -i);
+        int i = 0;
+        while(true) {
+//        for (int i = 0; i < oldDays; i++) {
+//            calendar.add(Calendar.DATE, -i);
             for (int j = 0; j < hoursPerDay; j++) {
-                calendar.add(Calendar.HOUR, -j);
+//                calendar.add(Calendar.HOUR, -j);
                 long requestTime = calendar.getTime().getTime();
 
                 calendar.add(Calendar.SECOND, 60);
                 long responseTime = calendar.getTime().getTime();
-
+//                RequestResponseStreamDTO dto = responseList.get(0);
                 for (RequestResponseStreamDTO dto: responseList) {
+                    dto.setMetaClientType("{}");
                     dto.setRequestTimestamp(requestTime);
                     dto.setResponseTime(responseTime);
+                    dto.setProperties(Collections.emptyMap());
                     publisher.publishEvent(dto);
                 }
 
-                for (FaultPublisherDTO dto: faultList) {
-                    dto.setRequestTimestamp(requestTime);
-                    publisher.publishEvent(dto);
-                }
+//                for (FaultPublisherDTO dto: faultList) {
+//                    dto.setRequestTimestamp(requestTime);
+//                    publisher.publishEvent(dto);
+//                }
 
-                for (ThrottlePublisherDTO dto: throttleList) {
-                    dto.setThrottledTime(requestTime);
-                    publisher.publishEvent(dto);
-                }
+//                for (ThrottlePublisherDTO dto: throttleList) {
+//                    dto.setThrottledTime(requestTime);
+//                    publisher.publishEvent(dto);
+//                }
             }
+            Thread.sleep(10);
+            i++;
+//            break;
         }
 
     }
@@ -119,6 +128,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
              continue;
             }
             String content = IOUtils.toString(new FileInputStream(file), "UTF-8");
+            System.out.println(content);
             RequestResponseStreamDTO dto = gson.fromJson(content, RequestResponseStreamDTO.class);
             responseList.add(dto);
         }
@@ -178,7 +188,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         stream.setApplicationOwner(appDto.getOwner());
         stream.setBackendTime(System.currentTimeMillis());
 
-        stream.setDestination(configs.getApiEndpoint());
+//        stream.setDestination(configs.getApiEndpoint());
         stream.setExecutionTime(new ExecutionTimeDTO());
         stream.setMetaClientType("");
         stream.setProtocol("");
@@ -333,7 +343,7 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         if (missingMandatoryValues.isEmpty()) {
             try {
                 String streamID = "org.wso2.apimgt.statistics.request:3.1.0";
-                this.dataPublisher.publish(streamID, System.currentTimeMillis(),
+                this.dataPublisher.tryPublish(streamID, System.currentTimeMillis(),
                         (Object[]) dataBridgeRequestStreamPublisherDTO.createMetaData(), (Object[]) null,
                         (Object[]) ((Object[]) dataBridgeRequestStreamPublisherDTO.createPayload()));
             } catch (Exception var5) {
@@ -391,8 +401,8 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
 
         try {
             loadAndPublishResponseEvent();
-            loadAndPublishThrottleEvent();
-            loadAndPublishFaultEvent();
+//            loadAndPublishThrottleEvent();
+//            loadAndPublishFaultEvent();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -407,8 +417,8 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         System.setProperty("carbon.home", configs.getAmHome());
         String serverUser = "admin";
         String serverPassword = "admin";
-        String serverURL = "tcp://analytics.apim.com:7612";
-        String serverAuthURL = "ssl://analytics.apim.com:7712";
+        String serverURL = "tcp://localhost:7612";
+        String serverAuthURL = "ssl://localhost:7712";
 
         try {
             this.dataPublisher = new DataPublisher(null, serverURL, serverAuthURL, serverUser, serverPassword);
@@ -425,11 +435,4 @@ public class EventPublisher extends APIMgtUsageDataBridgeDataPublisher {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        URITemplate templateToValidate = new URITemplate("/tenant-info/{username}");
-        Map<String, String> var = new HashMap<>();
-        String resource = "/tenant-info/YWRtaW4=";
-        boolean b = templateToValidate.matches(resource, var);
-        System.out.println(b);
-    }
 }

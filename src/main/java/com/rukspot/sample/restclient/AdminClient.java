@@ -21,6 +21,7 @@ package com.rukspot.sample.restclient;
 
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
+import com.rukspot.sample.configuration.models.ThrottlePolicy;
 import org.wso2.am.integration.clients.admin.api.ApiClient;
 import org.wso2.am.integration.clients.admin.api.ApiException;
 import org.wso2.am.integration.clients.admin.api.v16.ApplicationPolicyCollectionApi;
@@ -50,17 +51,17 @@ public class AdminClient {
         policyCollectionApi = new ApplicationPolicyCollectionApi(apiAdminClient);
     }
 
-    public void createApplicationPolicy(String name) throws ApiException {
-        if (isApplicationPolicyExist(name)) {
+    public void createApplicationPolicy(ThrottlePolicy policy) throws ApiException {
+        if (isApplicationPolicyExist(policy.getName())) {
             return;
         }
         ApplicationThrottlePolicyDTO dto = new ApplicationThrottlePolicyDTO();
-        dto.setPolicyName(name);
-        dto.setDisplayName(name);
+        dto.setPolicyName(policy.getName());
+        dto.setDisplayName(policy.getName());
         RequestCountLimitDTO limitDTO = new RequestCountLimitDTO();
         limitDTO.setTimeUnit("min");
         limitDTO.setUnitTime(1);
-        limitDTO.setRequestCount(1L);
+        limitDTO.setRequestCount(Long.valueOf(policy.getCount()));
         limitDTO.setType(ThrottleLimitDTO.TypeEnum.REQUESTCOUNTLIMIT);
         dto.setDefaultLimit(limitDTO);
 

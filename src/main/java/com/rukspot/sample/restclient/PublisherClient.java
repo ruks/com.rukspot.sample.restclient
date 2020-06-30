@@ -19,6 +19,7 @@
 
 package com.rukspot.sample.restclient;
 
+import com.google.gson.Gson;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
 import org.wso2.am.integration.clients.publisher.api.ApiClient;
@@ -27,6 +28,8 @@ import org.wso2.am.integration.clients.publisher.api.v1.ApiLifecycleApi;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIInfoDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIListDTO;
+
+import java.io.File;
 
 public class PublisherClient {
 
@@ -62,10 +65,35 @@ public class PublisherClient {
         return apidto;
     }
 
+    public APIDTO createAndPublishAPI(APIDTO apidto, String newName, String provider, File schema) throws Exception {
+        apidto.setName(newName);
+        apidto.setContext(newName);
+        apidto.setProvider(provider);
+        try {
+            apidto = apIsApi.apisImportGraphqlSchemaPost("GraphQL", schema, new Gson().toJson(apidto), null);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
+        lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), lifeCycleCheckList, null);
+        return apidto;
+    }
+
     public void cleanAPis() throws Exception {
         APIListDTO listDTO = apIsApi.apisGet(1000, 0, null, null, null, null, null);
         for (APIInfoDTO infoDTO : listDTO.getList()) {
             apIsApi.apisApiIdDelete(infoDTO.getId(), null);
         }
+    }
+
+    public APIDTO copyAndPublishAPI(APIDTO apidto, String version) throws Exception {
+        try {
+            apidto = apIsApi.apisCopyApiPost(version, apidto.getId(), false);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
+        lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), lifeCycleCheckList, null);
+        return apidto;
     }
 }

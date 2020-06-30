@@ -21,7 +21,6 @@ package com.rukspot.sample.configuration;
 
 import com.rukspot.sample.configuration.models.Configurations;
 import org.wso2.carbon.config.ConfigProviderFactory;
-import org.wso2.carbon.config.ConfigurationException;
 import org.wso2.carbon.config.provider.ConfigProvider;
 import org.wso2.carbon.utils.Constants;
 
@@ -31,13 +30,19 @@ import java.nio.file.Paths;
 public class ConfigurationService {
     private static ConfigurationService service = new ConfigurationService();
     private Configurations configurations;
-
+    String configPathKey = "config";
     private ConfigurationService() {
-        Path deploymentConfigPath = Paths.get("src/main/resources", Constants.DEPLOYMENT_CONFIG_YAML);
+        Path deploymentConfigPath;
+        if(System.getProperties().containsKey(configPathKey)) {
+            deploymentConfigPath = Paths.get(System.getProperty(configPathKey));
+        } else {
+            deploymentConfigPath = Paths.get("src/main/resources", Constants.DEPLOYMENT_CONFIG_YAML);
+        }
+
         try {
             ConfigProvider configProvider = ConfigProviderFactory.getConfigProvider(deploymentConfigPath, null);
             configurations = configProvider.getConfigurationObject(Configurations.class);
-        } catch (ConfigurationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -52,9 +57,5 @@ public class ConfigurationService {
 
     public static void main(String[] args) {
         ConfigurationService service = new ConfigurationService();
-        System.out.println(service.getConfigurations().userTestCases.size());
-        System.out.println(service.getConfigurations().userTestCases.get(0).getPublisher());
-        System.out.println(service.getConfigurations().userTestCases.get(0).getSubscriptions().size());
-        System.out.println(service.getConfigurations().userTestCases.get(0).getSubscriptions().get(0).getSubscriber());
     }
 }

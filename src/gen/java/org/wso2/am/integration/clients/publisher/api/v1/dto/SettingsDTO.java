@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.DeploymentsDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.EnvironmentDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.MonetizationAttributeDTO;
 
@@ -50,6 +51,12 @@ public class SettingsDTO {
 
   @SerializedName("externalStoresEnabled")
   private Boolean externalStoresEnabled = null;
+
+  @SerializedName("docVisibilityEnabled")
+  private Boolean docVisibilityEnabled = null;
+
+  @SerializedName("deployments")
+  private List<DeploymentsDTO> deployments = null;
 
   public SettingsDTO storeUrl(String storeUrl) {
     this.storeUrl = storeUrl;
@@ -183,6 +190,50 @@ public class SettingsDTO {
     this.externalStoresEnabled = externalStoresEnabled;
   }
 
+  public SettingsDTO docVisibilityEnabled(Boolean docVisibilityEnabled) {
+    this.docVisibilityEnabled = docVisibilityEnabled;
+    return this;
+  }
+
+   /**
+   * Is Document Visibility configuration enabled 
+   * @return docVisibilityEnabled
+  **/
+  @ApiModelProperty(example = "false", value = "Is Document Visibility configuration enabled ")
+  public Boolean isDocVisibilityEnabled() {
+    return docVisibilityEnabled;
+  }
+
+  public void setDocVisibilityEnabled(Boolean docVisibilityEnabled) {
+    this.docVisibilityEnabled = docVisibilityEnabled;
+  }
+
+  public SettingsDTO deployments(List<DeploymentsDTO> deployments) {
+    this.deployments = deployments;
+    return this;
+  }
+
+  public SettingsDTO addDeploymentsItem(DeploymentsDTO deploymentsItem) {
+    if (this.deployments == null) {
+      this.deployments = new ArrayList<>();
+    }
+    this.deployments.add(deploymentsItem);
+    return this;
+  }
+
+   /**
+   * Get deployments
+   * @return deployments
+  **/
+  @ApiModelProperty(value = "")
+  public List<DeploymentsDTO> getDeployments() {
+    return deployments;
+  }
+
+  public void setDeployments(List<DeploymentsDTO> deployments) {
+    this.deployments = deployments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -198,12 +249,14 @@ public class SettingsDTO {
         Objects.equals(this.scopes, settings.scopes) &&
         Objects.equals(this.monetizationAttributes, settings.monetizationAttributes) &&
         Objects.equals(this.securityAuditProperties, settings.securityAuditProperties) &&
-        Objects.equals(this.externalStoresEnabled, settings.externalStoresEnabled);
+        Objects.equals(this.externalStoresEnabled, settings.externalStoresEnabled) &&
+        Objects.equals(this.docVisibilityEnabled, settings.docVisibilityEnabled) &&
+        Objects.equals(this.deployments, settings.deployments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storeUrl, environment, scopes, monetizationAttributes, securityAuditProperties, externalStoresEnabled);
+    return Objects.hash(storeUrl, environment, scopes, monetizationAttributes, securityAuditProperties, externalStoresEnabled, docVisibilityEnabled, deployments);
   }
 
 
@@ -218,6 +271,8 @@ public class SettingsDTO {
     sb.append("    monetizationAttributes: ").append(toIndentedString(monetizationAttributes)).append("\n");
     sb.append("    securityAuditProperties: ").append(toIndentedString(securityAuditProperties)).append("\n");
     sb.append("    externalStoresEnabled: ").append(toIndentedString(externalStoresEnabled)).append("\n");
+    sb.append("    docVisibilityEnabled: ").append(toIndentedString(docVisibilityEnabled)).append("\n");
+    sb.append("    deployments: ").append(toIndentedString(deployments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

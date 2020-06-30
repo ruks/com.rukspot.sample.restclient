@@ -24,11 +24,23 @@ import org.wso2.carbon.config.annotation.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subscriptions {
+public class Subscription {
+    public Subscription() {
+        appName = "sample";
+        appPolicy = "1PerMin";
+        subscriber = "admin";
+        subscriber = "admin";
+        users.add("admin");
+    }
+
+    @Element(description = "APP Name")
+    private String appName;
+    @Element(description = "APP Policy")
+    private String appPolicy;
     @Element(description = "APP developers")
-    public String subscriber;
-    @Element(description = "APP developers")
-    public List<String> users = new ArrayList<>();
+    private String subscriber;
+    @Element(description = "APP users")
+    private List<String> users = new ArrayList<>();
 
     public String getSubscriber() {
         return subscriber;
@@ -44,5 +56,21 @@ public class Subscriptions {
 
     public void setUsers(List<String> users) {
         this.users = users;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public String getAppPolicy() {
+        return appPolicy;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public void setAppPolicy(String appPolicy) {
+        this.appPolicy = appPolicy;
     }
 }

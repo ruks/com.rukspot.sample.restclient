@@ -127,7 +127,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Delete a Custom Rule
-     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifMatch Validator for conditional requests; based on ETag (Will be supported in future).  (optional)
      * @param ifUnmodifiedSince Validator for conditional requests; based on Last Modified header (Will be supported in future).  (optional)
@@ -139,7 +139,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Delete a Custom Rule
-     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifMatch Validator for conditional requests; based on ETag (Will be supported in future).  (optional)
      * @param ifUnmodifiedSince Validator for conditional requests; based on Last Modified header (Will be supported in future).  (optional)
@@ -153,7 +153,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Delete a Custom Rule (asynchronously)
-     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Delete a Custom Rule. We need to provide the Id of the policy as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifMatch Validator for conditional requests; based on ETag (Will be supported in future).  (optional)
      * @param ifUnmodifiedSince Validator for conditional requests; based on Last Modified header (Will be supported in future).  (optional)
@@ -258,7 +258,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Get a Custom Rule
-     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -272,7 +272,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Get a Custom Rule
-     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -287,7 +287,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Get a Custom Rule (asynchronously)
-     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves a Custom Rule. We need to provide the policy Id as a path parameter. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -407,7 +407,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Update a Custom Rule
-     * Updates an existing Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Updates an existing Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param body Policy object that needs to be modified  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)
@@ -423,7 +423,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Update a Custom Rule
-     * Updates an existing Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Updates an existing Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param body Policy object that needs to be modified  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)
@@ -440,7 +440,7 @@ public class CustomRulesIndividualApi {
 
     /**
      * Update a Custom Rule (asynchronously)
-     * Updates an existing Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Updates an existing Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param ruleId Custom rule UUID  (required)
      * @param body Policy object that needs to be modified  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)

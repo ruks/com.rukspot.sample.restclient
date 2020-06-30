@@ -20,8 +20,7 @@ target
 .gradle
 build
 src/gen
-.DS_Store
-DS_Store
+**/.DS_Store
 .idea/
 .swagger-codegen-ignore
 .swagger-codegen/

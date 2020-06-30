@@ -124,7 +124,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Get all Custom Rules
-     * Retrieves all Custom Rules.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves all Custom Rules. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param accept Media types acceptable for the response. Default is application/json.  (optional, default to application/json)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -138,7 +138,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Get all Custom Rules
-     * Retrieves all Custom Rules.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves all Custom Rules. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param accept Media types acceptable for the response. Default is application/json.  (optional, default to application/json)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -153,7 +153,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Get all Custom Rules (asynchronously)
-     * Retrieves all Custom Rules.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Retrieves all Custom Rules. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param accept Media types acceptable for the response. Default is application/json.  (optional, default to application/json)
      * @param ifNoneMatch Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
      * @param ifModifiedSince Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource (Will be supported in future).  (optional)
@@ -260,7 +260,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Add a Custom Rule
-     * Adds a new Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Adds a new Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param body Custom Rule object that should to be added  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)
      * @return CustomRuleDTO
@@ -273,7 +273,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Add a Custom Rule
-     * Adds a new Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Adds a new Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param body Custom Rule object that should to be added  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)
      * @return ApiResponse&lt;CustomRuleDTO&gt;
@@ -287,7 +287,7 @@ public class CustomRulesCollectionApi {
 
     /**
      * Add a Custom Rule (asynchronously)
-     * Adds a new Custom Rule.  **NOTE:** * Only super tenant users are allowed for this operation. 
+     * Adds a new Custom Rule. **NOTE:** * Only super tenant users are allowed for this operation. 
      * @param body Custom Rule object that should to be added  (required)
      * @param contentType Media type of the entity in the body. Default is application/json.  (required)
      * @param callback The callback to be executed when the API call finishes

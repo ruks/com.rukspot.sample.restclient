@@ -28,9 +28,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -50,8 +50,7 @@ public class DCRClient {
     public void createOauthApp(String owner, String appName) throws IOException {
         HttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(configs.getDcrEndpoint());
-        String relativePath = "data" + File.separator + "dcr.json";
-        String payload = IOUtils.toString(getClass().getClassLoader().getResourceAsStream(relativePath), "UTF-8");
+        String payload = Utils.readFile("dcr.json");
         JSONObject jsonObject = new JSONObject(payload);
         jsonObject.put("clientName", appName);
         jsonObject.put("owner", owner);
@@ -60,15 +59,23 @@ public class DCRClient {
         httpPost.addHeader("Content-Type", "application/json");
         String cred = user + ":" + pass;
         httpPost.addHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(cred.getBytes()));
-        HttpResponse response = httpClient.execute(httpPost);
-        String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-        if (response.getStatusLine().getStatusCode() != 201) {
-//            System.out.println(body);
+
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(httpPost);
+            String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+            if (response.getStatusLine().getStatusCode() != 201) {
+                //            System.out.println(body);
+            }
+            JSONObject jsonObject1 = new JSONObject(body);
+            consumerKey = jsonObject1.getString("clientId");
+            consumerSecret = jsonObject1.getString("clientSecret");
+            //        System.out.println(consumerKey);
+        } finally {
+            if(response != null) {
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
-        JSONObject jsonObject1 = new JSONObject(body);
-        consumerKey = jsonObject1.getString("clientId");
-        consumerSecret = jsonObject1.getString("clientSecret");
-//        System.out.println(consumerKey);
     }
 
     public String getConsumerKey() {

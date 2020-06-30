@@ -27,61 +27,255 @@ com.rukspot.restclient:
   # hostname
   adminServiceBaseUrl: https://localhost:9443
   # hostname
-  gwEndpoint: https://localhost:8243/
+  gwEndpoint: https://localhost:8243
   # hostname
-  amHome: /Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0
+  amHome: /Users/rukshan/wso2/apim/3.2.0/testing/target/mysql/wso2am-3.2.0-SNAPSHOT
   # hostname
   appThrottlePolicy: 1PerMin
   # hostname
   defaultThrottlePolicy: 50PerMin
   # hostname
-  apiEndpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
-  # hostname
-  faultyApiEndpoint: https://localhost:9543/am/sample/pizzashack/v1/api/
-  # hostname
   defaultPass: admin
-  # tenants
-  tenants:
-    - carbon.super
-    # API developers
-  apiDevelopers:
-    - pub1
-    - pub2
-    - pub3
-    # API developer roles
-  apiDeveloperRoles:
-    - Internal/publisher
-    - Internal/creator
-    # APP developers
-  appDevelopers:
-    - sub1
-    - sub2
-    - sub3
-    # APP developer Roles
-  appDeveloperRoles:
-    - Internal/subscriber
-    # API users
-  apiUsers:
-    - user1
-    - user2
-    - user3
-    # API user Roles
-  apiUserRoles:
-    - Internal/everyone
     # API developer scopes
   apiDeveloperScopes: apim:api_view apim:api_create apim:api_publish apim:api_delete
   # APP developer scopes
   appDeveloperScopes: apim:subscribe apim:app_manage apim:sub_manage
   # APP developer scopes
   adminScopes: apim:tier_manage apim:tier_view
-  # APP developer scopes
-  userTestCases:
-    - !!com.rukspot.sample.configuration.models.UserTestCase
-      publisher: pub1
-      subscriptions:
-        - subscriber: sub1
-          users:
-            - user1
-            - user2
-            - user3
+    # APP developer scopes
+  testCases:
+#  -
+#    apiName: sample
+#    apiType: rest
+#    creator: admin
+#    initVersion: 1.0.0
+#    publisher: admin
+#    subscriptions:
+#    - appName: sample
+#      appPolicy: Unlimited
+#      subscriber: admin
+#      users:
+#      - admin
+#    supportOperations:
+#    - method: GET
+#      template: /menu
+#    testOperations:
+#    - delay: 0
+#      method: GET
+#      payload: null
+#      template: /menu
+#      times: 1
+#    version:
+#    - 2.0.0
+#    - 3.0.0
+  -
+    apiName: default
+    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub1
+    initVersion: 1.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: default
+        appPolicy: Unlimited
+        subscriber: sub1
+        users:
+          - user1
+          - user2
+    supportOperations:
+      - method: GET
+        template: /menu
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /menu
+        times: 1
+    version:
+      - 1.1.0
+      - 1.2.0
 
+  -
+    apiName: throttled
+    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub2
+    initVersion: 1.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: throttled
+        appPolicy: 1PerMin
+        subscriber: sub2
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+    testOperations:
+      - delay: 2
+        method: GET
+        payload: null
+        template: /menu
+        times: 2
+    version:
+      - 1.1.0
+      - 1.2.0
+
+  -
+    apiName: noAuth
+    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub3
+    initVersion: 2.0.0
+    publisher: pub3
+    subscriptions:
+      - appName: throttled
+        appPolicy: 1PerMin
+        subscriber: sub2
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+        security: false
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /menu
+        times: 2
+        security: false
+    version:
+      - 2.1.0
+      - 2.2.0
+
+  -
+    apiName: faulty
+    endpoint: https://localhost:9543/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub1
+    initVersion: 3.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: faulty
+        appPolicy: Unlimited
+        subscriber: sub3
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /menu
+        times: 1
+    version:
+      - 3.1.0
+      - 3.2.0
+
+  -
+    apiName: code_api
+    endpoint: http://localhost:9090/inventory/customers/
+    apiType: rest
+    creator: pub2
+    initVersion: 4.0.0
+    publisher: pub2
+    subscriptions:
+      - appName: code_app
+        appPolicy: Unlimited
+        subscriber: sub1
+        users:
+          - user1
+          - user3
+    supportOperations:
+      - method: GET
+        template: /{code}
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /201
+        times: 2
+      - delay: 0
+        method: GET
+        payload: null
+        template: /408
+        times: 2
+      - delay: 0
+        method: GET
+        payload: null
+        template: /501
+        times: 2
+    version:
+      - 4.1.0
+      - 4.2.0
+
+  -
+    apiName: graphql
+    endpoint: https://api.graph.cool/simple/v1/swapi
+    apiType: graphql
+    creator: pub2
+    initVersion: 5.0.0
+    publisher: pub2
+    subscriptions:
+      - appName: graphql
+        appPolicy: Unlimited
+        subscriber: sub2
+        users:
+          - user1
+          - user2
+    testOperations:
+      - delay: 0
+        method: POST
+        payload: '{"query":"{\n  allAssets {\n    id\n  }\n  allFilms {\n    id\n  }\n}\n"}'
+        template: /
+        times: 1
+    version:
+      - 5.1.0
+      - 5.2.0
+  testConfigs:
+    tenants:
+    - carbon.super
+#    - wso2.com
+    throttlePolicy:
+    - count: 1
+      name: 1PerMin
+      type: Application
+    users:
+    - username: pub1
+      roles:
+      - Internal/publisher
+      - Internal/creator
+    - username: pub2
+      roles:
+        - Internal/publisher
+        - Internal/creator
+    - username: pub3
+      roles:
+        - Internal/publisher
+        - Internal/creator
+    - username: sub1
+      roles:
+        - Internal/subscriber
+    - username: sub2
+      roles:
+        - Internal/subscriber
+    - username: sub3
+      roles:
+        - Internal/subscriber
+    - username: user1
+      roles:
+        - Internal/everyone
+    - username: user2
+      roles:
+        - Internal/everyone
+    - username: user3
+      roles:
+        - Internal/everyone
+    # Resource Path
+  resourcePath: src/main/resources/data

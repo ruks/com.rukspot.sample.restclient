@@ -6,6 +6,7 @@
   "provider": "admin",
   "lifeCycleStatus": "PUBLISHED",
   "wsdlInfo": null,
+  "wsdlUrl": null,
   "responseCachingEnabled": false,
   "cacheTimeout": 300,
   "destinationStatsEnabled": null,
@@ -61,7 +62,8 @@
       "authorization",
       "Access-Control-Allow-Origin",
       "Content-Type",
-      "SOAPAction"
+      "SOAPAction",
+      "apikey"
     ],
     "accessControlAllowMethods": [
       "GET",
@@ -94,7 +96,9 @@
       "authType": "Application & Application User",
       "throttlingPolicy": "Unlimited",
       "scopes": [],
-      "usedProductIds": []
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
     },
     {
       "id": "",
@@ -103,7 +107,9 @@
       "authType": "Application & Application User",
       "throttlingPolicy": "Unlimited",
       "scopes": [],
-      "usedProductIds": []
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
     },
     {
       "id": "",
@@ -112,7 +118,9 @@
       "authType": "Application & Application User",
       "throttlingPolicy": "Unlimited",
       "scopes": [],
-      "usedProductIds": []
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
     },
     {
       "id": "",
@@ -121,7 +129,9 @@
       "authType": "Application & Application User",
       "throttlingPolicy": "Unlimited",
       "scopes": [],
-      "usedProductIds": []
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
     },
     {
       "id": "",
@@ -130,8 +140,14 @@
       "authType": "Application & Application User",
       "throttlingPolicy": "Unlimited",
       "scopes": [],
-      "usedProductIds": []
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
     }
   ],
-  "threatProtectionPolicies": null
+  "threatProtectionPolicies": null,
+  "categories": [],
+  "keyManagers": [
+    "all"
+  ]
 }

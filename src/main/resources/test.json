@@ -1,0 +1,25 @@
+{
+  "event": {
+    "metaData": {},
+    "correlationData": {},
+    "payloadData": {
+      "messageID": "a057fd56-34b4-4eb4-bcd4-edcafb1188b5",
+      "appKey": "41:yeow@tm.com.my",
+      "appTier": "Unlimited",
+      "apiKey": "/t/tm.com.my/microgw/1.0.0:1.0.0",
+      "apiTier": "Restricted",
+      "subscriptionKey": "41:/t/tm.com.my/microgw/1.0.0:1.0.0",
+      "subscriptionTier": "Restricted",
+      "resourceKey": "get1a02ea2ed4c44957ba7c8a1dcff9487a:1.0.0",
+      "resourceTier": "Unlimited",
+      "userId": "yeow@tm.com.my",
+      "apiContext": "/t/tm.com.my/microgw/1.0.0",
+      "apiVersion": "1.0.0",
+      "appTenant": "tm.com.my",
+      "apiTenant": "tm.com.my",
+      "appId": "41",
+      "apiName": "MicroGWTesting",
+      "properties": "{}"
+    }
+  }
+}

@@ -3641,7 +3641,7 @@ paths:
         GET https://127.0.0.1:9443/api/am/publisher/v1.0/subscriptions?apiId=890a4f4d-09eb-4877-a323-57f6ce2ed79b
         Authorization: Bearer ae4eae22-3f65-387b-a171-d37eaa366fa8
       x-wso2-response: "HTTP/1.1 200 OK\nContent-Type: application/json\n \n{\n   \"previous\": \"\",\n   \"list\":    [\n            {\n         \"subscriptionId\": \"64eca60b-2e55-4c38-8603-e9e6bad7d809\",\n         \"policy\": \"Gold\",\n         \"apiIdentifier\": \"admin-PhoneVerification-1.0.0\",\n         \"applicationId\": \"896658a0-b4ee-4535-bbfa-806c894a4015\",\n         \"lifeCycleStatus\": \"UNBLOCKED\"\n      },\n            {\n         \"subscriptionId\": \"7ac22c34-8745-4cfe-91e0-262c50b2f2e3\",\n         \"policy\": \"Gold\",\n         \"apiIdentifier\": \"admin-PhoneVerification-1.0.0\",\n         \"applicationId\": \"367a2361-8db5-4140-8133-c6c8dc7fa0c4\",\n         \"lifeCycleStatus\": \"UNBLOCKED\"\n      }\n   ],\n   \"next\": \"\",\n   \"count\": 2\n}"
-      summary: Get all Subscriptions
+      summary: Get all Subscription
       description: |
         This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of
 
@@ -3661,7 +3661,7 @@ paths:
             Keywords to filter subscriptions
           type: string
       tags:
-        - Subscriptions
+        - Subscription
       responses:
         200:
           description: |
@@ -3773,7 +3773,7 @@ paths:
             - PROD_ONLY_BLOCKED
         - $ref: '#/parameters/If-Match'
       tags:
-        - Subscriptions
+        - Subscription
       responses:
         200:
           description: |
@@ -3833,7 +3833,7 @@ paths:
       description: |
         This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation.
       tags:
-        - Subscriptions
+        - Subscription
       responses:
         200:
           description: |
@@ -6213,7 +6213,7 @@ paths:
       description: |
         This operation is used to get the list of subscribed alert types by the user.
       tags:
-        - Alert Subscriptions
+        - Alert Subscription
       responses:
         200:
           description: |
@@ -6256,7 +6256,7 @@ paths:
           schema:
             $ref: '#/definitions/AlertsInfo'
       tags:
-        - Alert Subscriptions
+        - Alert Subscription
       responses:
         201:
           description: |
@@ -6294,7 +6294,7 @@ paths:
       description: |
         This operation is used to unsubscribe the respective user from all the alert types.
       tags:
-        - Alert Subscriptions
+        - Alert Subscription
       responses:
         200:
           description: |

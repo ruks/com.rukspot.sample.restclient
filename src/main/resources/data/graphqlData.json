@@ -1,0 +1,1 @@
+{"query":"{\n  allAssets {\n    id\n  }\n  allFilms {\n    id\n  }\n}\n"}

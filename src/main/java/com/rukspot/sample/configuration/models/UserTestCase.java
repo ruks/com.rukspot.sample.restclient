@@ -28,7 +28,7 @@ public class UserTestCase {
     @Element(description = "APP developers")
     public String publisher;
     @Element(description = "APP developers")
-    public List<Subscriptions> subscriptions = new ArrayList<>();
+    public List<Subscription> subscriptions = new ArrayList<>();
 
     public String getPublisher() {
         return publisher;
@@ -38,11 +38,11 @@ public class UserTestCase {
         this.publisher = publisher;
     }
 
-    public List<Subscriptions> getSubscriptions() {
+    public List<Subscription> getSubscriptions() {
         return subscriptions;
     }
 
-    public void setSubscriptions(List<Subscriptions> subscriptions) {
+    public void setSubscriptions(List<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
     }
 }

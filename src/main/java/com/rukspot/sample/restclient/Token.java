@@ -28,6 +28,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -49,10 +50,22 @@ public class Token {
         httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
         String cred = ck + ":" + cs;
         httpPost.addHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(cred.getBytes()));
-        HttpResponse response = httpClient.execute(httpPost);
-        String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-//        System.out.println(body);
-        JSONObject jsonObject = new JSONObject(body);
-        return jsonObject.getString("access_token");
+
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(httpPost);
+            String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+            if(response.getStatusLine().getStatusCode() != 200) {
+                System.out.println(response.getStatusLine().getStatusCode());
+                System.out.println(body);
+            }
+            JSONObject jsonObject = new JSONObject(body);
+            return jsonObject.getString("access_token");
+        } finally {
+            if(response != null) {
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
+        }
+
     }
 }

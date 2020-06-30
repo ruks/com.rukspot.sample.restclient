@@ -20,14 +20,20 @@
 package com.rukspot.sample.restclient;
 
 import com.google.gson.Gson;
+import com.rukspot.sample.Utils.CurlGenerator;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
+import com.rukspot.sample.configuration.models.TestOperation;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
 import org.wso2.am.integration.clients.store.api.ApiClient;
 import org.wso2.am.integration.clients.store.api.v1.ApIsApi;
@@ -43,8 +49,6 @@ import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationKeyGenerateRe
 import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationListDTO;
 import org.wso2.am.integration.clients.store.api.v1.dto.SubscriptionDTO;
 
-import java.io.File;
-
 public class DevPortalClient {
     ApIsApi apIsApi;
     static Token token;
@@ -55,29 +59,56 @@ public class DevPortalClient {
     String version = "v1.1";
     Configurations configs;
 
-    public void invokeAPI(String url, String token, int delay, String prefix) throws Exception {
-        int timeout = 3;
+    public static void invokeAPI(String url, String token, int delay, String prefix) throws Exception {
+        invokeAPI(url, token, delay, prefix, 5);
+    }
+
+    public static void invokeAPI(String url, String token, int delay, String prefix, String payload) throws Exception {
+        invokeAPI(url, token, delay, prefix, 5, payload);
+    }
+
+    public static void invokeAPI(String url, String token, int delay, String prefix, int times) throws Exception {
+        invokeAPI(url, token, delay, prefix, times, null);
+    }
+
+    public static void invokeAPI(String url, String token, int delay, String prefix, int times, String payload) throws Exception {
+        int timeout = 10;
         RequestConfig config =
-                RequestConfig.custom().setConnectTimeout(timeout * 1000).setConnectionRequestTimeout(timeout * 1000)
+                RequestConfig.custom().setConnectTimeout(timeout * 1000)
+                        .setConnectionRequestTimeout(timeout * 1000)
                         .setSocketTimeout(timeout * 1000).build();
         CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 
-        HttpGet httpPost = new HttpGet(url);
-        if (token != null) {
-            httpPost.addHeader("Authorization", "Bearer " + token);
+        HttpUriRequest request;
+        if(payload == null) {
+            request = new HttpGet(url);
+        } else {
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new StringEntity(payload));
+            httpPost.addHeader("Content-Type","application/json");
+            request=httpPost;
         }
-        httpPost.addHeader("X-Forwarded-For", "1.1.177.1");
+        if (token != null) {
+            request.addHeader("Authorization", "Bearer " + token);
+        }
+        request.addHeader("X-Forwarded-For", "1.1.177.1");
 
-        for (int i = 0; i < 5; i++) {
-            HttpResponse response;
+        for (int i = 0; i < times; i++) {
+            HttpResponse response = null;
             try {
-                response = httpClient.execute(httpPost);
+                response = httpClient.execute(request);
                 String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-                //            System.out.println(body);
+//                System.out.println(body);
                 System.out.println(prefix + " : " + response.getStatusLine().getStatusCode());
+                CurlGenerator.saveAsCurl(request, delay);
                 Thread.sleep(delay * 1000);
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println(prefix+ " : " + "API call failed.");
+            } finally {
+                if(response != null) {
+                    EntityUtils.consumeQuietly(response.getEntity());
+                }
             }
         }
 
@@ -106,10 +137,7 @@ public class DevPortalClient {
 
     public ApplicationDTO createApp(String appName, String policy)
             throws Exception {
-
-        String relativePath = "data" + File.separator + "newApp.json";
-        String payload =
-                IOUtils.toString(PublisherClient.class.getClassLoader().getResourceAsStream(relativePath), "UTF-8");
+        String payload = Utils.readFile("newApp.json");
         ApplicationDTO dto = gson.fromJson(payload, ApplicationDTO.class);
         dto.setThrottlingPolicy(policy);
         dto.setName(appName);
@@ -119,8 +147,7 @@ public class DevPortalClient {
 
     public ApplicationKeyDTO createSubscribe(ApplicationDTO dto, APIDTO apidto)
             throws Exception {
-        String relativePath = "data" + File.separator + "keyGen.json";
-        String payload = IOUtils.toString(PublisherClient.class.getClassLoader().getResourceAsStream(relativePath), "UTF-8");
+        String payload = Utils.readFile("keyGen.json");
         ApplicationKeyGenerateRequestDTO applicationKeyGenerateRequestDTO =
                 gson.fromJson(payload, ApplicationKeyGenerateRequestDTO.class);
 
@@ -149,6 +176,52 @@ public class DevPortalClient {
         ApplicationKeyDTO keyDTO = keysApi.applicationsApplicationIdGenerateKeysPost(dto.getApplicationId(),
                 applicationKeyGenerateRequestDTO);
         return keyDTO;
+
+    }
+
+    public static void invokeAPI(String url, String token, TestOperation operation) throws Exception {
+        int timeout = 10;
+        RequestConfig config =
+                RequestConfig.custom().setConnectTimeout(timeout * 1000)
+                        .setConnectionRequestTimeout(timeout * 1000)
+                        .setSocketTimeout(timeout * 1000).build();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+
+        HttpUriRequest request = null;
+        String method = operation.getMethod();
+        url += operation.getTemplate();
+        if("get".equalsIgnoreCase(method)) {
+            request = new HttpGet(url);
+        } else if("post".equalsIgnoreCase(method)) {
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(new StringEntity(operation.getPayload()));
+            httpPost.addHeader("Content-Type","application/json");
+            request=httpPost;
+        }
+        if (token != null) {
+            request.addHeader("Authorization", "Bearer " + token);
+        }
+        request.addHeader("X-Forwarded-For", "1.1.177.1");
+        request.addHeader("User-Agent", "Mozilla/5.0 (Android 4.4; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0");
+
+        for (int i = 0; i < operation.getTimes(); i++) {
+            HttpResponse response = null;
+            try {
+                response = httpClient.execute(request);
+                String body = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+                //                System.out.println(body);
+                System.out.println(url + " : " + response.getStatusLine().getStatusCode());
+                CurlGenerator.saveAsCurl(request, operation.getDelay());
+                Thread.sleep(operation.getDelay() * 1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(url+ " : " + "API call failed.");
+            } finally {
+                if(response != null) {
+                    EntityUtils.consumeQuietly(response.getEntity());
+                }
+            }
+        }
 
     }
 

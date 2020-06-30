@@ -1,0 +1,152 @@
+{
+  "id": "3951aac8-3fc2-4525-9528-6940930c7773",
+  "name": "sample",
+  "description": null,
+  "context": "/sample",
+  "version": "1.0.0",
+  "provider": "admin",
+  "lifeCycleStatus": "PUBLISHED",
+  "wsdlInfo": null,
+  "wsdlUrl": null,
+  "responseCachingEnabled": false,
+  "cacheTimeout": 300,
+  "destinationStatsEnabled": null,
+  "hasThumbnail": null,
+  "isDefaultVersion": false,
+  "enableSchemaValidation": false,
+  "type": "HTTP",
+  "transport": [
+    "http",
+    "https"
+  ],
+  "tags": [],
+  "policies": [
+    "Unlimited"
+  ],
+  "apiThrottlingPolicy": null,
+  "authorizationHeader": "Authorization",
+  "securityScheme": [
+    "oauth2",
+    "oauth_basic_auth_api_key_mandatory"
+  ],
+  "maxTps": null,
+  "visibility": "PUBLIC",
+  "visibleRoles": [],
+  "visibleTenants": [],
+  "endpointSecurity": null,
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ],
+  "labels": [],
+  "mediationPolicies": [],
+  "subscriptionAvailability": "ALL_TENANTS",
+  "subscriptionAvailableTenants": [],
+  "additionalProperties": {},
+  "monetization": null,
+  "accessControl": "NONE",
+  "accessControlRoles": [],
+  "businessInformation": {
+    "businessOwner": null,
+    "businessOwnerEmail": null,
+    "technicalOwner": null,
+    "technicalOwnerEmail": null
+  },
+  "corsConfiguration": {
+    "corsConfigurationEnabled": false,
+    "accessControlAllowOrigins": [
+      "*"
+    ],
+    "accessControlAllowCredentials": false,
+    "accessControlAllowHeaders": [
+      "authorization",
+      "Access-Control-Allow-Origin",
+      "Content-Type",
+      "SOAPAction",
+      "apikey"
+    ],
+    "accessControlAllowMethods": [
+      "GET",
+      "PUT",
+      "POST",
+      "DELETE",
+      "PATCH",
+      "OPTIONS"
+    ]
+  },
+  "workflowStatus": null,
+  "createdTime": "2020-06-11 20:41:33.926",
+  "lastUpdatedTime": "2020-06-11 20:41:34.454",
+  "endpointConfig": {
+    "endpoint_type": "http",
+    "sandbox_endpoints": {
+      "url": "http://www.mocky.io/v2/5cf89c053400006b0001b03d"
+    },
+    "production_endpoints": {
+      "url": "http://www.mocky.io/v2/5cf89c053400006b0001b03d"
+    }
+  },
+  "endpointImplementationType": "ENDPOINT",
+  "scopes": [],
+  "operations": [
+    {
+      "id": "",
+      "target": "/*",
+      "verb": "PUT",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    },
+    {
+      "id": "",
+      "target": "/*",
+      "verb": "POST",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    },
+    {
+      "id": "",
+      "target": "/*",
+      "verb": "PATCH",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    },
+    {
+      "id": "",
+      "target": "/*",
+      "verb": "GET",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    },
+    {
+      "id": "",
+      "target": "/*",
+      "verb": "DELETE",
+      "authType": "Application & Application User",
+      "throttlingPolicy": "Unlimited",
+      "scopes": [],
+      "usedProductIds": [],
+      "amznResourceName": null,
+      "amznResourceTimeout": null
+    }
+  ],
+  "threatProtectionPolicies": null,
+  "categories": [],
+  "keyManagers": [
+    "all"
+  ]
+}

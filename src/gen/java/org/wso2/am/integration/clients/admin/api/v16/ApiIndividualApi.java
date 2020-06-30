@@ -59,15 +59,15 @@ public class ApiIndividualApi {
      * Build call for exportApiGet
      * @param name API Name  (required)
      * @param version Version of the API  (required)
-     * @param providerName Provider name of the API  (required)
      * @param format Format of output documents. Can be YAML or JSON.  (required)
+     * @param providerName Provider name of the API  (optional)
      * @param preserveStatus Preserve API Status on export  (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call exportApiGetCall(String name, String version, String providerName, String format, Boolean preserveStatus, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call exportApiGetCall(String name, String version, String format, String providerName, Boolean preserveStatus, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -119,7 +119,7 @@ public class ApiIndividualApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call exportApiGetValidateBeforeCall(String name, String version, String providerName, String format, Boolean preserveStatus, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call exportApiGetValidateBeforeCall(String name, String version, String format, String providerName, Boolean preserveStatus, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'name' is set
         if (name == null) {
@@ -131,18 +131,13 @@ public class ApiIndividualApi {
             throw new ApiException("Missing the required parameter 'version' when calling exportApiGet(Async)");
         }
         
-        // verify the required parameter 'providerName' is set
-        if (providerName == null) {
-            throw new ApiException("Missing the required parameter 'providerName' when calling exportApiGet(Async)");
-        }
-        
         // verify the required parameter 'format' is set
         if (format == null) {
             throw new ApiException("Missing the required parameter 'format' when calling exportApiGet(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = exportApiGetCall(name, version, providerName, format, preserveStatus, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = exportApiGetCall(name, version, format, providerName, preserveStatus, progressListener, progressRequestListener);
         return call;
 
     }
@@ -152,14 +147,14 @@ public class ApiIndividualApi {
      * This operation can be used to export the details of a particular API as a zip file. 
      * @param name API Name  (required)
      * @param version Version of the API  (required)
-     * @param providerName Provider name of the API  (required)
      * @param format Format of output documents. Can be YAML or JSON.  (required)
+     * @param providerName Provider name of the API  (optional)
      * @param preserveStatus Preserve API Status on export  (optional)
      * @return File
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public File exportApiGet(String name, String version, String providerName, String format, Boolean preserveStatus) throws ApiException {
-        ApiResponse<File> resp = exportApiGetWithHttpInfo(name, version, providerName, format, preserveStatus);
+    public File exportApiGet(String name, String version, String format, String providerName, Boolean preserveStatus) throws ApiException {
+        ApiResponse<File> resp = exportApiGetWithHttpInfo(name, version, format, providerName, preserveStatus);
         return resp.getData();
     }
 
@@ -168,14 +163,14 @@ public class ApiIndividualApi {
      * This operation can be used to export the details of a particular API as a zip file. 
      * @param name API Name  (required)
      * @param version Version of the API  (required)
-     * @param providerName Provider name of the API  (required)
      * @param format Format of output documents. Can be YAML or JSON.  (required)
+     * @param providerName Provider name of the API  (optional)
      * @param preserveStatus Preserve API Status on export  (optional)
      * @return ApiResponse&lt;File&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<File> exportApiGetWithHttpInfo(String name, String version, String providerName, String format, Boolean preserveStatus) throws ApiException {
-        com.squareup.okhttp.Call call = exportApiGetValidateBeforeCall(name, version, providerName, format, preserveStatus, null, null);
+    public ApiResponse<File> exportApiGetWithHttpInfo(String name, String version, String format, String providerName, Boolean preserveStatus) throws ApiException {
+        com.squareup.okhttp.Call call = exportApiGetValidateBeforeCall(name, version, format, providerName, preserveStatus, null, null);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -185,14 +180,14 @@ public class ApiIndividualApi {
      * This operation can be used to export the details of a particular API as a zip file. 
      * @param name API Name  (required)
      * @param version Version of the API  (required)
-     * @param providerName Provider name of the API  (required)
      * @param format Format of output documents. Can be YAML or JSON.  (required)
+     * @param providerName Provider name of the API  (optional)
      * @param preserveStatus Preserve API Status on export  (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call exportApiGetAsync(String name, String version, String providerName, String format, Boolean preserveStatus, final ApiCallback<File> callback) throws ApiException {
+    public com.squareup.okhttp.Call exportApiGetAsync(String name, String version, String format, String providerName, Boolean preserveStatus, final ApiCallback<File> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -213,7 +208,7 @@ public class ApiIndividualApi {
             };
         }
 
-        com.squareup.okhttp.Call call = exportApiGetValidateBeforeCall(name, version, providerName, format, preserveStatus, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = exportApiGetValidateBeforeCall(name, version, format, providerName, preserveStatus, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
