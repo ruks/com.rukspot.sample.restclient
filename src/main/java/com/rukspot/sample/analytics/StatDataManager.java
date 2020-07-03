@@ -28,6 +28,7 @@ import com.rukspot.sample.configuration.models.User;
 import com.rukspot.sample.restclient.AdminClient;
 import com.rukspot.sample.restclient.TenantMgt;
 import com.rukspot.sample.restclient.UserMgt;
+import com.rukspot.sample.websocket.WebSocketServer;
 import org.slf4j.LoggerFactory;
 import org.wso2.apimgt.demo.backend.CustomerService;
 import org.wso2.apimgt.demo.backend.CustomersService;
@@ -45,14 +46,17 @@ public class StatDataManager {
         MicroservicesRunner microservicesRunner = new MicroservicesRunner()
                 .deploy(new CustomerService())
                 .deploy(new CustomersService());
+        WebSocketServer webSocketServer = new WebSocketServer(7474);
         try {
             microservicesRunner.start();
+            webSocketServer.run();
             manager.init();
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             microservicesRunner.stop();
+            webSocketServer.stop();
             System.exit(0);
         }
     }

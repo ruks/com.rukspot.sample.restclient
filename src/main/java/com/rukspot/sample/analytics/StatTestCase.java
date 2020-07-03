@@ -42,5 +42,8 @@ public class StatTestCase {
         if("graphql".equalsIgnoreCase(testCase.getApiType())) {
             new GraphQLAPITestCase().run(testCase, tenant);
         }
+        if("websocket".equalsIgnoreCase(testCase.getApiType())) {
+            new WebsocketAPITestCase().run(testCase, tenant);
+        }
     }
 }

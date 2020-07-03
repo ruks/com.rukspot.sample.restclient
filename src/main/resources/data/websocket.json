@@ -1,0 +1,21 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "context": "web",
+  "policies": [
+    "Unlimited"
+  ],
+  "endpointConfig": {
+    "endpoint_type": "http",
+    "sandbox_endpoints": {
+      "url": "$prod_endpoint"
+    },
+    "production_endpoints": {
+      "url": "$prod_endpoint"
+    }
+  },
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ],
+  "type": "WS"
+}

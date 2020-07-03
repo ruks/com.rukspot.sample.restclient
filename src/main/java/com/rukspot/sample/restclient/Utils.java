@@ -19,14 +19,14 @@
 
 package com.rukspot.sample.restclient;
 
-import com.rukspot.sample.configuration.ConfigurationService;
-import com.rukspot.sample.configuration.models.Configurations;
+import com.rukspot.sample.Utils.Constants;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 
 public class Utils {
+
     public static String getTeantUsername(String user, String t) {
         if (t != null && !"carbon.super".equalsIgnoreCase(t)) {
             return user + "@" + t;
@@ -35,14 +35,14 @@ public class Utils {
     }
 
     public static String readFile(String name) throws IOException {
-        Configurations configs = ConfigurationService.getInstance().getConfigurations();
-        String filePath = configs.getResourcePath() + File.separator + name;
+        String dataDir = System.getProperty(Constants.resourcePathKey);
+        String filePath = dataDir + File.separator + name;
         return FileUtils.readFileToString(new File(filePath), "UTF-8");
     }
 
     public static File getFile(String name) throws IOException {
-        Configurations configs = ConfigurationService.getInstance().getConfigurations();
-        String filePath = configs.getResourcePath() + File.separator + name;
+        String dataDir = System.getProperty(Constants.resourcePathKey);
+        String filePath = dataDir + File.separator + name;
         return new File(filePath);
     }
 }

@@ -83,7 +83,7 @@ public final class WebSocketServer {
 //        WebSocketTestClient webSocketTestClient = new WebSocketTestClient("ws://localhost:7474/", latch);
         WebSocketTestClient webSocketTestClient = new WebSocketTestClient("ws://localhost:9099/websocket/1.0.0", latch);
         Map<String, String> customHeaders = new HashMap<>();
-        customHeaders.put("Authorization","Bearer db877116-8f07-3a6b-92fb-44d212eb1e8e");
+        customHeaders.put("Authorization","Bearer c008f8ad-082a-3507-bb99-e6e138c3ed1d");
         customHeaders.put("websocket-ruks-header.rukshan","Bearer ae39b3bd-ca6c-3592-8ac0-facfabee7042");
         webSocketTestClient.setCustomHeaders(customHeaders);
         if(webSocketTestClient.handhshake()) {

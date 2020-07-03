@@ -43,6 +43,8 @@ public class Configurations {
     private String adminServiceBaseUrl = "https://localhost:9443";
     @Element(description = "hostname")
     private String gwEndpoint = "https://localhost:8243";
+    @Element(description = "websocket")
+    private String wsEndpoint = "https://localhost:9099";
 
     @Element(description = "hostname")
     private String amHome = "/Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0";
@@ -67,9 +69,6 @@ public class Configurations {
     private List<TestCase> testCases = new ArrayList<>();
 
     private TestConfig testConfigs;
-
-    @Element(description = "Resource Path")
-    private String resourcePath = "src/main/resources/data";
 
     public Configurations() {
 //        Subscription subscription1 = new Subscription();
@@ -146,11 +145,11 @@ public class Configurations {
         return testCases;
     }
 
-    public String getResourcePath() {
-        return resourcePath;
-    }
-
     public TestConfig getTestConfigs() {
         return testConfigs;
+    }
+
+    public String getWsEndpoint() {
+        return wsEndpoint;
     }
 }

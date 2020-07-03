@@ -37,8 +37,8 @@ public class CurlGenerator {
 
     private CurlGenerator() {
         String fileName = "rundata.sh";
-        Configurations configs = ConfigurationService.getInstance().getConfigurations();
-        String filePath = configs.getResourcePath() + File.separator + fileName;
+        String dataDir = System.getProperty(Constants.resourcePathKey);
+        String filePath = dataDir + File.separator + fileName;
         file = new File(filePath);
         file.setExecutable(true);
         if(file.exists() && file.delete()) {

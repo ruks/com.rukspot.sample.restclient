@@ -93,7 +93,7 @@ public class PublisherClient {
             e.printStackTrace();
         }
         String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
-        lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), lifeCycleCheckList, null);
+        lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), "", null);
         return apidto;
     }
 }
