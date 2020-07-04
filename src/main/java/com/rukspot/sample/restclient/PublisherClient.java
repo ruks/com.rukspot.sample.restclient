@@ -79,6 +79,20 @@ public class PublisherClient {
         return apidto;
     }
 
+    public APIDTO createAndPublishSOAPAPI(APIDTO apidto, String newName, String provider, File wsdl) throws Exception {
+        apidto.setName(newName);
+        apidto.setContext(newName);
+        apidto.setProvider(provider);
+        try {
+            apidto = apIsApi.importWSDLDefinition(wsdl, null, new Gson().toJson(apidto), "SOAP");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
+        lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), lifeCycleCheckList, null);
+        return apidto;
+    }
+
     public void cleanAPis() throws Exception {
         APIListDTO listDTO = apIsApi.apisGet(1000, 0, null, null, null, null, null);
         for (APIInfoDTO infoDTO : listDTO.getList()) {

@@ -49,6 +49,8 @@ import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationKeyGenerateRe
 import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationListDTO;
 import org.wso2.am.integration.clients.store.api.v1.dto.SubscriptionDTO;
 
+import java.util.Map;
+
 public class DevPortalClient {
     ApIsApi apIsApi;
     static Token token;
@@ -195,7 +197,9 @@ public class DevPortalClient {
         } else if("post".equalsIgnoreCase(method)) {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(operation.getPayload()));
-            httpPost.addHeader("Content-Type","application/json");
+            if(operation.getHeaders() == null || !operation.getHeaders().containsKey("Content-Type")) {
+                httpPost.addHeader("Content-Type", "application/json");
+            }
             request=httpPost;
         }
         if (token != null) {
@@ -203,6 +207,11 @@ public class DevPortalClient {
         }
         request.addHeader("X-Forwarded-For", "1.1.177.1");
         request.addHeader("User-Agent", "Mozilla/5.0 (Android 4.4; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0");
+        if (operation.getHeaders() != null) {
+            for (Map.Entry<String, String> entry : operation.getHeaders().entrySet()) {
+                request.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
 
         for (int i = 0; i < operation.getTimes(); i++) {
             HttpResponse response = null;

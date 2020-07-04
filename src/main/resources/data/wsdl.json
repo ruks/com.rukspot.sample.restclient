@@ -1,0 +1,30 @@
+{
+  "name": "wsdl",
+  "description": null,
+  "context": "/wsdl",
+  "version": "1.0.0",
+  "policies": [
+    "Unlimited"
+  ],
+  "endpointConfig": {
+    "endpoint_type": "http",
+    "sandbox_endpoints": {
+      "url": "$prod_endpoint"
+    },
+    "endpoint_security": {
+      "production": {
+        "password": "admin",
+        "customParameters": "{}",
+        "type": "BASIC",
+        "enabled": true,
+        "username": "admin"
+      }
+    },
+    "production_endpoints": {
+      "url": "$prod_endpoint"
+    }
+  },
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ]
+}

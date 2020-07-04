@@ -97,173 +97,208 @@ com.rukspot.restclient:
       - 1.1.0
       - 1.2.0
 
-#  -
-#    apiName: throttled
-#    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
-#    apiType: rest
-#    creator: pub2
-#    initVersion: 1.0.0
-#    publisher: pub1
-#    subscriptions:
-#      - appName: throttled
-#        appPolicy: 1PerMin
-#        subscriber: sub2
-#        users:
-#          - user2
-#          - user3
-#    supportOperations:
-#      - method: GET
-#        template: /menu
-#    testOperations:
-#      - delay: 2
-#        method: GET
-#        payload: null
-#        template: /menu
-#        times: 2
-#    version:
-#      - 1.1.0
-#      - 1.2.0
-#
-#  -
-#    apiName: noAuth
-#    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
-#    apiType: rest
-#    creator: pub3
-#    initVersion: 2.0.0
-#    publisher: pub3
-#    subscriptions:
-#      - appName: throttled
-#        appPolicy: 1PerMin
-#        subscriber: sub2
-#        users:
-#          - user2
-#          - user3
-#    supportOperations:
-#      - method: GET
-#        template: /menu
-#        security: false
-#    testOperations:
-#      - delay: 0
-#        method: GET
-#        payload: null
-#        template: /menu
-#        times: 2
-#        security: false
-#    version:
-#      - 2.1.0
-#      - 2.2.0
-#
-#  -
-#    apiName: faulty
-#    endpoint: https://localhost:9543/am/sample/pizzashack/v1/api/
-#    apiType: rest
-#    creator: pub1
-#    initVersion: 3.0.0
-#    publisher: pub1
-#    subscriptions:
-#      - appName: faulty
-#        appPolicy: Unlimited
-#        subscriber: sub3
-#        users:
-#          - user2
-#          - user3
-#    supportOperations:
-#      - method: GET
-#        template: /menu
-#    testOperations:
-#      - delay: 0
-#        method: GET
-#        payload: null
-#        template: /menu
-#        times: 1
-#    version:
-#      - 3.1.0
-#      - 3.2.0
-#
-#  -
-#    apiName: code_api
-#    endpoint: http://localhost:9090/inventory/customers/
-#    apiType: rest
-#    creator: pub2
-#    initVersion: 4.0.0
-#    publisher: pub2
-#    subscriptions:
-#      - appName: code_app
-#        appPolicy: Unlimited
-#        subscriber: sub1
-#        users:
-#          - user1
-#          - user3
-#    supportOperations:
-#      - method: GET
-#        template: /{code}
-#    testOperations:
-#      - delay: 0
-#        method: GET
-#        payload: null
-#        template: /201
-#        times: 2
-#      - delay: 0
-#        method: GET
-#        payload: null
-#        template: /408
-#        times: 2
-#      - delay: 0
-#        method: GET
-#        payload: null
-#        template: /501
-#        times: 2
-#    version:
-#      - 4.1.0
-#      - 4.2.0
-#
-#  -
-#    apiName: graphql
-#    endpoint: https://api.graph.cool/simple/v1/swapi
-#    apiType: graphql
-#    creator: pub2
-#    initVersion: 5.0.0
-#    publisher: pub2
-#    subscriptions:
-#      - appName: graphql
-#        appPolicy: Unlimited
-#        subscriber: sub2
-#        users:
-#          - user1
-#          - user2
-#    testOperations:
-#      - delay: 0
-#        method: POST
-#        payload: '{"query":"{\n  allAssets {\n    id\n  }\n  allFilms {\n    id\n  }\n}\n"}'
-#        template: /
-#        times: 1
-#    version:
-#      - 5.1.0
-#      - 5.2.0
-#
-#  -
-#    apiName: websocket
-#    endpoint: ws://localhost:7474/
-#    apiType: websocket
-#    creator: pub3
-#    initVersion: 6.0.0
-#    publisher: pub3
-#    subscriptions:
-#      - appName: websocket
-#        appPolicy: Unlimited
-#        subscriber: sub3
-#        users:
-#          - user2
-#          - user3
-#    testOperations:
-#      - delay: 0
-#        method: POST
-#        payload: '{message:"hello response from web socket test api"}'
-#        template: /
-#        times: 1
-#    version:
-#      - 6.1.0
-#      - 6.2.0
+  -
+    apiName: throttled
+    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub2
+    initVersion: 1.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: throttled
+        appPolicy: 1PerMin
+        subscriber: sub2
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+    testOperations:
+      - delay: 2
+        method: GET
+        payload: null
+        template: /menu
+        times: 2
+    version:
+      - 1.1.0
+      - 1.2.0
+
+  -
+    apiName: noAuth
+    endpoint: https://localhost:9443/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub3
+    initVersion: 2.0.0
+    publisher: pub3
+    subscriptions:
+      - appName: throttled
+        appPolicy: 1PerMin
+        subscriber: sub2
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+        security: false
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /menu
+        times: 2
+        security: false
+    version:
+      - 2.1.0
+      - 2.2.0
+
+  -
+    apiName: faulty
+    endpoint: https://localhost:9543/am/sample/pizzashack/v1/api/
+    apiType: rest
+    creator: pub1
+    initVersion: 3.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: faulty
+        appPolicy: Unlimited
+        subscriber: sub3
+        users:
+          - user2
+          - user3
+    supportOperations:
+      - method: GET
+        template: /menu
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /menu
+        times: 1
+    version:
+      - 3.1.0
+      - 3.2.0
+
+  -
+    apiName: code_api
+    endpoint: http://localhost:9090/inventory/customers/
+    apiType: rest
+    creator: pub2
+    initVersion: 4.0.0
+    publisher: pub2
+    subscriptions:
+      - appName: code_app
+        appPolicy: Unlimited
+        subscriber: sub1
+        users:
+          - user1
+          - user3
+    supportOperations:
+      - method: GET
+        template: /{code}
+    testOperations:
+      - delay: 0
+        method: GET
+        payload: null
+        template: /201
+        times: 2
+      - delay: 0
+        method: GET
+        payload: null
+        template: /408
+        times: 2
+      - delay: 0
+        method: GET
+        payload: null
+        template: /501
+        times: 2
+    version:
+      - 4.1.0
+      - 4.2.0
+
+  -
+    apiName: graphql
+    endpoint: https://api.graph.cool/simple/v1/swapi
+    apiType: graphql
+    creator: pub2
+    initVersion: 5.0.0
+    publisher: pub2
+    subscriptions:
+      - appName: graphql
+        appPolicy: Unlimited
+        subscriber: sub2
+        users:
+          - user1
+          - user2
+    testOperations:
+      - delay: 0
+        method: POST
+        payload: '{"query":"{\n  allAssets {\n    id\n  }\n  allFilms {\n    id\n  }\n}\n"}'
+        template: /
+        times: 1
+    version:
+      - 5.1.0
+      - 5.2.0
+
+  -
+    apiName: websocket
+    endpoint: ws://localhost:7474/
+    apiType: websocket
+    creator: pub3
+    initVersion: 6.0.0
+    publisher: pub3
+    subscriptions:
+      - appName: websocket
+        appPolicy: Unlimited
+        subscriber: sub3
+        users:
+          - user2
+          - user3
+    testOperations:
+      - delay: 0
+        method: POST
+        payload: '{message:"hello response from web socket test api"}'
+        template: /
+        times: 1
+    version:
+      - 6.1.0
+      - 6.2.0
+
+  -
+    apiName: soapPass
+    endpoint: https://localhost:9443/services/UserProfileMgtService
+    apiType: soap
+    creator: pub1
+    initVersion: 7.0.0
+    publisher: pub1
+    subscriptions:
+      - appName: soapPass
+        appPolicy: Unlimited
+        subscriber: sub1
+        users:
+          - user3
+          - user1
+    testOperations:
+      - delay: 0
+        method: POST
+        payload: '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:mgt="http://mgt.profile.user.identity.carbon.wso2.org">
+                     <soap:Header/>
+                     <soap:Body>
+                        <mgt:getUserProfile>
+                           <mgt:username>admin</mgt:username>
+                           <mgt:profileName>default</mgt:profileName>
+                        </mgt:getUserProfile>
+                     </soap:Body>
+                  </soap:Envelope>'
+        template: /
+        times: 1
+        headers:
+          SOAPAction: urn:getUserProfile
+          Content-Type: application/soap+xml
+    version:
+      - 7.1.0
+      - 7.2.0
 
   testConfigs:
     tenants:

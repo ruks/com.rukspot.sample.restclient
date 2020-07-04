@@ -23,7 +23,9 @@ import org.wso2.carbon.config.annotation.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TestCase {
     public TestCase() {
@@ -46,6 +48,9 @@ public class TestCase {
         TestOperation testOperation = new TestOperation();
         testOperation.setMethod(getMenu.getMethod());
         testOperation.setTemplate(getMenu.getTemplate());
+        Map<String, String> headers = new HashMap<>();
+        headers.put("key", "value");
+        testOperation.setHeaders(headers);
         testOperations = Arrays.asList(testOperation);
     }
 

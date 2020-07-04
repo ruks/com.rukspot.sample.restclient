@@ -21,6 +21,8 @@ package com.rukspot.sample.configuration.models;
 
 import org.wso2.carbon.config.annotation.Element;
 
+import java.util.Map;
+
 public class TestOperation {
     @Element(description = "delay")
     private int delay = 0;
@@ -34,6 +36,8 @@ public class TestOperation {
     private String template;
     @Element(description = "security")
     private boolean security = true;
+    @Element(description = "headers")
+    private Map<String, String> headers;
 
     public int getDelay() {
         return delay;
@@ -81,5 +85,13 @@ public class TestOperation {
 
     public void setSecurity(boolean security) {
         this.security = security;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
     }
 }

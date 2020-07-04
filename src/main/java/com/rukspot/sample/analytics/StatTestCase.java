@@ -45,5 +45,8 @@ public class StatTestCase {
         if("websocket".equalsIgnoreCase(testCase.getApiType())) {
             new WebsocketAPITestCase().run(testCase, tenant);
         }
+        if("soap".equalsIgnoreCase(testCase.getApiType())) {
+            new WSDLPassThroughTestCase().run(testCase, tenant);
+        }
     }
 }
