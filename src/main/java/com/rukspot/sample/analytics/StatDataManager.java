@@ -19,6 +19,8 @@
 
 package com.rukspot.sample.analytics;
 
+import com.rukspot.sample.backend.CustomerService;
+import com.rukspot.sample.backend.CustomersService;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
 import com.rukspot.sample.configuration.models.TestCase;
@@ -30,8 +32,6 @@ import com.rukspot.sample.restclient.TenantMgt;
 import com.rukspot.sample.restclient.UserMgt;
 import com.rukspot.sample.websocket.WebSocketServer;
 import org.slf4j.LoggerFactory;
-import org.wso2.apimgt.demo.backend.CustomerService;
-import org.wso2.apimgt.demo.backend.CustomersService;
 import org.wso2.msf4j.MicroservicesRunner;
 
 public class StatDataManager {
@@ -41,6 +41,11 @@ public class StatDataManager {
     public static void main(String[] args) throws Exception {
         System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
         log = LoggerFactory.getLogger(StatDataManager.class);
+        String onlyBackendKey = "onlyBackend";
+        boolean onlyBackend = false;
+        if(System.getProperties().containsKey(onlyBackendKey)) {
+            onlyBackend = Boolean.getBoolean(System.getProperties().getProperty(onlyBackendKey));
+        }
 
         StatDataManager manager = new StatDataManager();
         MicroservicesRunner microservicesRunner = new MicroservicesRunner()
@@ -50,7 +55,9 @@ public class StatDataManager {
         try {
             microservicesRunner.start();
             webSocketServer.run();
-            manager.init();
+            if(!onlyBackend) {
+                manager.init();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
