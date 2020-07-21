@@ -132,7 +132,7 @@ com.rukspot.restclient:
     initVersion: 2.0.0
     publisher: pub3
     subscriptions:
-      - appName: throttled
+      - appName: noNeed
         appPolicy: 1PerMin
         subscriber: sub2
         users:
@@ -300,10 +300,55 @@ com.rukspot.restclient:
       - 7.1.0
       - 7.2.0
 
+  -
+    apiName: SimpleProduct
+    apiType: product
+    creator: pub1
+    publisher: pub1
+    subscriptions:
+      - appName: SimpleProduct
+        appPolicy: Unlimited
+        subscriber: sub1
+        users:
+          - user1
+          - user2
+    apiResources:
+      - apiName: default
+        version: 1.0.0
+        operations:
+          -
+            method: GET
+            security: true
+            template: /menu
+      - apiName: code_api
+        version: 4.0.0
+        operations:
+          -
+            method: GET
+            security: true
+            template: /{code}
+    testOperations:
+      - delay: 0
+        method: GET
+        template: /menu
+        times: 1
+      - delay: 0
+        method: GET
+        template: /201
+        times: 1
+      - delay: 0
+        method: GET
+        template: /401
+        times: 1
+      - delay: 0
+        method: GET
+        template: /501
+        times: 2
+
   testConfigs:
     tenants:
     - carbon.super
-#    - wso2.com
+    - wso2.com
     throttlePolicy:
     - count: 1
       name: 1PerMin
@@ -339,3 +384,6 @@ com.rukspot.restclient:
     - username: user3
       roles:
         - Internal/everyone
+    - username: manager
+      roles:
+        - Internal/analytics

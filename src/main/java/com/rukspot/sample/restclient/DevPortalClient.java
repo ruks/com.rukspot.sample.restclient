@@ -35,6 +35,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIProductDTO;
 import org.wso2.am.integration.clients.store.api.ApiClient;
 import org.wso2.am.integration.clients.store.api.v1.ApIsApi;
 import org.wso2.am.integration.clients.store.api.v1.ApplicationKeysApi;
@@ -147,7 +148,17 @@ public class DevPortalClient {
         return dto;
     }
 
+    public ApplicationKeyDTO createSubscribe(ApplicationDTO dto, APIProductDTO productDTO)
+            throws Exception {
+        return createSubscribe(dto, productDTO.getId());
+    }
+
     public ApplicationKeyDTO createSubscribe(ApplicationDTO dto, APIDTO apidto)
+            throws Exception {
+        return createSubscribe(dto, apidto.getId());
+    }
+
+    public ApplicationKeyDTO createSubscribe(ApplicationDTO dto, String apiID)
             throws Exception {
         String payload = Utils.readFile("keyGen.json");
         ApplicationKeyGenerateRequestDTO applicationKeyGenerateRequestDTO =
@@ -161,7 +172,7 @@ public class DevPortalClient {
             //            System.out.println("Waiting to API ( " + apidto.getName() + ")available on dev portal " + retry);
             APIListDTO listDTO = apIsApi.apisGet(limit, 0, null, null, null);
             for (APIInfoDTO infoDTO : listDTO.getList()) {
-                if (infoDTO.getId().equalsIgnoreCase(apidto.getId())) {
+                if (infoDTO.getId().equalsIgnoreCase(apiID)) {
                     retry = -1;
                     break;
                 }
@@ -170,7 +181,7 @@ public class DevPortalClient {
         }
 
         SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
-        subscriptionDTO.setApiId(apidto.getId());
+        subscriptionDTO.setApiId(apiID);
         subscriptionDTO.setApplicationId(dto.getApplicationId());
         subscriptionDTO.setThrottlingPolicy("Unlimited");
         //        subscriptionDTO.setType(SubscriptionDTO.TypeEnum.API);
@@ -178,9 +189,7 @@ public class DevPortalClient {
         ApplicationKeyDTO keyDTO = keysApi.applicationsApplicationIdGenerateKeysPost(dto.getApplicationId(),
                 applicationKeyGenerateRequestDTO);
         return keyDTO;
-
     }
-
     public static void invokeAPI(String url, String token, TestOperation operation) throws Exception {
         int timeout = 10;
         RequestConfig config =

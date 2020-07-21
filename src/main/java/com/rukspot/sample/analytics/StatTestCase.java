@@ -19,6 +19,7 @@
 
 package com.rukspot.sample.analytics;
 
+import com.rukspot.sample.Utils.Constants;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
 import com.rukspot.sample.configuration.models.TestCase;
@@ -47,6 +48,9 @@ public class StatTestCase {
         }
         if("soap".equalsIgnoreCase(testCase.getApiType())) {
             new WSDLPassThroughTestCase().run(testCase, tenant);
+        }
+        if("product".equalsIgnoreCase(testCase.getApiType())) {
+            new ProductTestCase().run(testCase, tenant);
         }
     }
 }

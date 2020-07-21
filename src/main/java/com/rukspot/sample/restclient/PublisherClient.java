@@ -23,17 +23,21 @@ import com.google.gson.Gson;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
 import org.wso2.am.integration.clients.publisher.api.ApiClient;
+import org.wso2.am.integration.clients.publisher.api.ApiException;
 import org.wso2.am.integration.clients.publisher.api.v1.ApIsApi;
 import org.wso2.am.integration.clients.publisher.api.v1.ApiLifecycleApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ApiProductsApi;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIInfoDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIListDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIProductDTO;
 
 import java.io.File;
 
 public class PublisherClient {
 
     ApIsApi apIsApi;
+    ApiProductsApi productsApi;
     ApiLifecycleApi lifecycleApi;
     static Token token;
     Configurations configs;
@@ -51,6 +55,7 @@ public class PublisherClient {
         apiPublisherClient.setBasePath(configs.getPublisherEndpoint());
 
         apIsApi = new ApIsApi(apiPublisherClient);
+        productsApi = new ApiProductsApi(apiPublisherClient);
         lifecycleApi = new ApiLifecycleApi(apiPublisherClient);
     }
 
@@ -109,5 +114,26 @@ public class PublisherClient {
         String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
         lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), "", null);
         return apidto;
+    }
+
+    public APIDTO getAPI(String apiName, String apiVersion) {
+        try {
+            String query = "name:" + apiName + " " + "version:" + apiVersion;
+            APIListDTO listDTO = apIsApi.apisGet(1, 0, null, query, null, true, null);
+            if (listDTO != null && listDTO.getCount() > 0) {
+                String id = listDTO.getList().get(0).getId();
+                return apIsApi.apisApiIdGet(id, null, null);
+            }
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public APIProductDTO createAndPublishProduct(APIProductDTO apiProductDTO, String newName, String provider) throws Exception {
+        apiProductDTO.setName(newName);
+        apiProductDTO.context(newName);
+        apiProductDTO.provider(provider);
+        return productsApi.apiProductsPost(apiProductDTO);
     }
 }

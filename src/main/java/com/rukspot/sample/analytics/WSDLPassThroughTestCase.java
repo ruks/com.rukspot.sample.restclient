@@ -20,6 +20,7 @@
 package com.rukspot.sample.analytics;
 
 import com.google.gson.Gson;
+import com.rukspot.sample.Utils.Constants;
 import com.rukspot.sample.configuration.ConfigurationService;
 import com.rukspot.sample.configuration.models.Configurations;
 import com.rukspot.sample.configuration.models.TestCase;
@@ -42,7 +43,7 @@ public class WSDLPassThroughTestCase extends RestAPITestCase {
         String payload = originalPayload.replaceAll("\\$prod_endpoint", testCase.getEndpoint());
         APIDTO apidto = new Gson().fromJson(payload, APIDTO.class);
         apidto.setVersion(testCase.getInitVersion());
-        String id = System.currentTimeMillis() + "";
+        String id = System.getProperty(Constants.UNIQUE_ID);
         String apiName = testCase.getApiName() + "_" + id;
         APIDTO apiDtoResponse = publisherClient
                 .createAndPublishSOAPAPI(apidto, apiName, Utils.getTeantUsername(testCase.getPublisher(), tenant), wsdl);

@@ -52,6 +52,12 @@ public class TestCase {
         headers.put("key", "value");
         testOperation.setHeaders(headers);
         testOperations = Arrays.asList(testOperation);
+
+        APIResource apiResource = new APIResource();
+        apiResource.setApiName("sample");
+        apiResource.setVersion("1.0.0");
+        apiResource.setOperations(Arrays.asList(getMenu));
+        apiResources = Arrays.asList(apiResource);
     }
 
     @Element(description = "apiName")
@@ -74,6 +80,8 @@ public class TestCase {
     private List<Operation> supportOperations;
     @Element(description = "Test Operations")
     private List<TestOperation> testOperations;
+    @Element(description = "API Operaions")
+    private List<APIResource> apiResources;
 
     public String getApiName() {
         return apiName;
@@ -153,5 +161,13 @@ public class TestCase {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public List<APIResource> getApiResources() {
+        return apiResources;
+    }
+
+    public void setApiResources(List<APIResource> apiResources) {
+        this.apiResources = apiResources;
     }
 }

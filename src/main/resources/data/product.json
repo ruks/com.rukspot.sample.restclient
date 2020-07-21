@@ -1,0 +1,44 @@
+{
+  "name": "sample",
+  "context": "sample",
+  "policies": [
+    "Unlimited"
+  ],
+  "apis": [
+    {
+      "name": "default_1595232290685",
+      "apiId": "26e03e32-555d-4fb3-a69c-aa6c638803a3",
+      "operations": [
+        {
+          "id": null,
+          "target": "/menu",
+          "verb": "GET",
+          "authType": null,
+          "throttlingPolicy": null,
+          "scopes": []
+        }
+      ]
+    },
+    {
+      "name": "code_api_1595232588472",
+      "apiId": "44a03bdb-f083-44b0-b415-87cc796617f2",
+      "operations": [
+        {
+          "id": null,
+          "target": "/{code}",
+          "verb": "GET",
+          "authType": null,
+          "throttlingPolicy": null,
+          "scopes": []
+        }
+      ]
+    }
+  ],
+  "gatewayEnvironments": [
+    "Production and Sandbox"
+  ],
+  "transport": [
+    "http",
+    "https"
+  ]
+}

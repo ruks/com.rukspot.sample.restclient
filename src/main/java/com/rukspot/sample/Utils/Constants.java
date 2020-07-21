@@ -21,4 +21,5 @@ package com.rukspot.sample.Utils;
 
 public class Constants {
     public final static String resourcePathKey = "resources";
+    public final static String UNIQUE_ID = "unique_id";
 }

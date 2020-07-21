@@ -19,6 +19,7 @@
 
 package com.rukspot.sample.analytics;
 
+import com.rukspot.sample.Utils.Constants;
 import com.rukspot.sample.backend.CustomerService;
 import com.rukspot.sample.backend.CustomersService;
 import com.rukspot.sample.configuration.ConfigurationService;
@@ -44,7 +45,7 @@ public class StatDataManager {
         String onlyBackendKey = "onlyBackend";
         boolean onlyBackend = false;
         if(System.getProperties().containsKey(onlyBackendKey)) {
-            onlyBackend = Boolean.getBoolean(System.getProperties().getProperty(onlyBackendKey));
+            onlyBackend = Boolean.getBoolean(onlyBackendKey);
         }
 
         StatDataManager manager = new StatDataManager();
@@ -62,9 +63,11 @@ public class StatDataManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            microservicesRunner.stop();
-            webSocketServer.stop();
-            System.exit(0);
+            if(!onlyBackend) {
+                microservicesRunner.stop();
+                webSocketServer.stop();
+                System.exit(0);
+            }
         }
     }
 
@@ -105,6 +108,7 @@ public class StatDataManager {
             }
         }
 
+        System.setProperty(Constants.UNIQUE_ID, System.currentTimeMillis() + "");
         for (TestCase testCase: configs.getTestCases()) {
             for (String tenant : configs.getTestConfigs().getTenants()) {
                 new StatTestCase(testCase, tenant).run();
