@@ -32,10 +32,9 @@ import org.wso2.am.integration.clients.publisher.api.v1.dto.APIEndpointSecurityD
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIMaxTpsDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIMonetizationInfoDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIOperationsDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIScopeDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIThreatProtectionPoliciesDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.DeploymentEnvironmentsDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.MediationPolicyDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.ScopeDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.WSDLInfoDTO;
 
 /**
@@ -70,9 +69,6 @@ public class APIDTO {
   @SerializedName("wsdlUrl")
   private String wsdlUrl = null;
 
-  @SerializedName("testKey")
-  private String testKey = null;
-
   @SerializedName("responseCachingEnabled")
   private Boolean responseCachingEnabled = null;
 
@@ -90,9 +86,6 @@ public class APIDTO {
 
   @SerializedName("enableSchemaValidation")
   private Boolean enableSchemaValidation = null;
-
-  @SerializedName("enableStore")
-  private Boolean enableStore = null;
 
   /**
    * The api creation type to be used. Accepted values are HTTP, WS, SOAPTOREST, GRAPHQL
@@ -235,9 +228,6 @@ public class APIDTO {
   @SerializedName("gatewayEnvironments")
   private List<String> gatewayEnvironments = null;
 
-  @SerializedName("deploymentEnvironments")
-  private List<DeploymentEnvironmentsDTO> deploymentEnvironments = null;
-
   @SerializedName("labels")
   private List<String> labels = null;
 
@@ -245,15 +235,15 @@ public class APIDTO {
   private List<MediationPolicyDTO> mediationPolicies = null;
 
   /**
-   * The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.
+   * The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.
    */
   @JsonAdapter(SubscriptionAvailabilityEnum.Adapter.class)
   public enum SubscriptionAvailabilityEnum {
-    CURRENT_TENANT("CURRENT_TENANT"),
+    CURRENT_TENANT("current_tenant"),
     
-    ALL_TENANTS("ALL_TENANTS"),
+    ALL_TENANTS("all_tenants"),
     
-    SPECIFIC_TENANTS("SPECIFIC_TENANTS");
+    SPECIFIC_TENANTS("specific_tenants");
 
     private String value;
 
@@ -427,7 +417,7 @@ public class APIDTO {
   private EndpointImplementationTypeEnum endpointImplementationType = EndpointImplementationTypeEnum.ENDPOINT;
 
   @SerializedName("scopes")
-  private List<APIScopeDTO> scopes = null;
+  private List<ScopeDTO> scopes = null;
 
   @SerializedName("operations")
   private List<APIOperationsDTO> operations = null;
@@ -437,9 +427,6 @@ public class APIDTO {
 
   @SerializedName("categories")
   private List<String> categories = null;
-
-  @SerializedName("keyManagers")
-  private Object keyManagers = null;
 
   public APIDTO id(String id) {
     this.id = id;
@@ -603,24 +590,6 @@ public class APIDTO {
     this.wsdlUrl = wsdlUrl;
   }
 
-  public APIDTO testKey(String testKey) {
-    this.testKey = testKey;
-    return this;
-  }
-
-   /**
-   * Get testKey
-   * @return testKey
-  **/
-  @ApiModelProperty(example = "8swdwj9080edejhj", value = "")
-  public String getTestKey() {
-    return testKey;
-  }
-
-  public void setTestKey(String testKey) {
-    this.testKey = testKey;
-  }
-
   public APIDTO responseCachingEnabled(Boolean responseCachingEnabled) {
     this.responseCachingEnabled = responseCachingEnabled;
     return this;
@@ -727,24 +696,6 @@ public class APIDTO {
 
   public void setEnableSchemaValidation(Boolean enableSchemaValidation) {
     this.enableSchemaValidation = enableSchemaValidation;
-  }
-
-  public APIDTO enableStore(Boolean enableStore) {
-    this.enableStore = enableStore;
-    return this;
-  }
-
-   /**
-   * Get enableStore
-   * @return enableStore
-  **/
-  @ApiModelProperty(example = "true", value = "")
-  public Boolean isEnableStore() {
-    return enableStore;
-  }
-
-  public void setEnableStore(Boolean enableStore) {
-    this.enableStore = enableStore;
   }
 
   public APIDTO type(TypeEnum type) {
@@ -1037,32 +988,6 @@ public class APIDTO {
     this.gatewayEnvironments = gatewayEnvironments;
   }
 
-  public APIDTO deploymentEnvironments(List<DeploymentEnvironmentsDTO> deploymentEnvironments) {
-    this.deploymentEnvironments = deploymentEnvironments;
-    return this;
-  }
-
-  public APIDTO addDeploymentEnvironmentsItem(DeploymentEnvironmentsDTO deploymentEnvironmentsItem) {
-    if (this.deploymentEnvironments == null) {
-      this.deploymentEnvironments = new ArrayList<>();
-    }
-    this.deploymentEnvironments.add(deploymentEnvironmentsItem);
-    return this;
-  }
-
-   /**
-   * List of selected deployment environments and clusters 
-   * @return deploymentEnvironments
-  **/
-  @ApiModelProperty(value = "List of selected deployment environments and clusters ")
-  public List<DeploymentEnvironmentsDTO> getDeploymentEnvironments() {
-    return deploymentEnvironments;
-  }
-
-  public void setDeploymentEnvironments(List<DeploymentEnvironmentsDTO> deploymentEnvironments) {
-    this.deploymentEnvironments = deploymentEnvironments;
-  }
-
   public APIDTO labels(List<String> labels) {
     this.labels = labels;
     return this;
@@ -1121,10 +1046,10 @@ public class APIDTO {
   }
 
    /**
-   * The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.
+   * The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.
    * @return subscriptionAvailability
   **/
-  @ApiModelProperty(example = "CURRENT_TENANT", value = "The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.")
+  @ApiModelProperty(example = "current_tenant", value = "The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.")
   public SubscriptionAvailabilityEnum getSubscriptionAvailability() {
     return subscriptionAvailability;
   }
@@ -1343,10 +1268,10 @@ public class APIDTO {
   }
 
    /**
-   * Endpoint configuration of the API. This can be used to provide different types of endpoints including Simple REST Endpoints, Loadbalanced and Failover.  &#x60;Simple REST Endpoint&#x60;   {     \&quot;endpoint_type\&quot;: \&quot;http\&quot;,     \&quot;sandbox_endpoints\&quot;:       {        \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/\&quot;     },     \&quot;production_endpoints\&quot;:       {        \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/\&quot;     }   }  &#x60;Loadbalanced Endpoint&#x60;    {     \&quot;endpoint_type\&quot;: \&quot;load_balance\&quot;,     \&quot;algoCombo\&quot;: \&quot;org.apache.synapse.endpoints.algorithms.RoundRobin\&quot;,     \&quot;sessionManagement\&quot;: \&quot;\&quot;,     \&quot;sandbox_endpoints\&quot;:       [                 {           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/1\&quot;        },                 {           \&quot;endpoint_type\&quot;: \&quot;http\&quot;,           \&quot;template_not_supported\&quot;: false,           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/2\&quot;        }     ],     \&quot;production_endpoints\&quot;:       [                 {           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/3\&quot;        },                 {           \&quot;endpoint_type\&quot;: \&quot;http\&quot;,           \&quot;template_not_supported\&quot;: false,           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/4\&quot;        }     ],     \&quot;sessionTimeOut\&quot;: \&quot;\&quot;,     \&quot;algoClassName\&quot;: \&quot;org.apache.synapse.endpoints.algorithms.RoundRobin\&quot;   }  &#x60;Failover Endpoint&#x60;    {     \&quot;production_failovers\&quot;:[        {           \&quot;endpoint_type\&quot;:\&quot;http\&quot;,           \&quot;template_not_supported\&quot;:false,           \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/1\&quot;        }     ],     \&quot;endpoint_type\&quot;:\&quot;failover\&quot;,     \&quot;sandbox_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/2\&quot;     },     \&quot;production_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/3\&quot;     },     \&quot;sandbox_failovers\&quot;:[        {           \&quot;endpoint_type\&quot;:\&quot;http\&quot;,           \&quot;template_not_supported\&quot;:false,           \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/4\&quot;        }     ]   }  &#x60;Default Endpoint&#x60;    {     \&quot;endpoint_type\&quot;:\&quot;default\&quot;,     \&quot;sandbox_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;default\&quot;     },     \&quot;production_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;default\&quot;     }   }  &#x60;Endpoint from Endpoint Registry&#x60;   {     \&quot;endpoint_type\&quot;: \&quot;Registry\&quot;,     \&quot;endpoint_id\&quot;: \&quot;{registry-name:entry-name:version}\&quot;,   } 
+   * Endpoint configuration of the API. This can be used to provide different types of endpoints including Simple REST Endpoints, Loadbalanced and Failover.  &#x60;Simple REST Endpoint&#x60;   {     \&quot;endpoint_type\&quot;: \&quot;http\&quot;,     \&quot;sandbox_endpoints\&quot;:       {        \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/\&quot;     },     \&quot;production_endpoints\&quot;:       {        \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/\&quot;     }   }  &#x60;Loadbalanced Endpoint&#x60;    {     \&quot;endpoint_type\&quot;: \&quot;load_balance\&quot;,     \&quot;algoCombo\&quot;: \&quot;org.apache.synapse.endpoints.algorithms.RoundRobin\&quot;,     \&quot;sessionManagement\&quot;: \&quot;\&quot;,     \&quot;sandbox_endpoints\&quot;:       [                 {           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/1\&quot;        },                 {           \&quot;endpoint_type\&quot;: \&quot;http\&quot;,           \&quot;template_not_supported\&quot;: false,           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/2\&quot;        }     ],     \&quot;production_endpoints\&quot;:       [                 {           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/3\&quot;        },                 {           \&quot;endpoint_type\&quot;: \&quot;http\&quot;,           \&quot;template_not_supported\&quot;: false,           \&quot;url\&quot;: \&quot;https://localhost:9443/am/sample/pizzashack/v1/api/4\&quot;        }     ],     \&quot;sessionTimeOut\&quot;: \&quot;\&quot;,     \&quot;algoClassName\&quot;: \&quot;org.apache.synapse.endpoints.algorithms.RoundRobin\&quot;   }  &#x60;Failover Endpoint&#x60;    {     \&quot;production_failovers\&quot;:[        {           \&quot;endpoint_type\&quot;:\&quot;http\&quot;,           \&quot;template_not_supported\&quot;:false,           \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/1\&quot;        }     ],     \&quot;endpoint_type\&quot;:\&quot;failover\&quot;,     \&quot;sandbox_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/2\&quot;     },     \&quot;production_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/3\&quot;     },     \&quot;sandbox_failovers\&quot;:[        {           \&quot;endpoint_type\&quot;:\&quot;http\&quot;,           \&quot;template_not_supported\&quot;:false,           \&quot;url\&quot;:\&quot;https://localhost:9443/am/sample/pizzashack/v1/api/4\&quot;        }     ]   }  &#x60;Default Endpoint&#x60;    {     \&quot;endpoint_type\&quot;:\&quot;default\&quot;,     \&quot;sandbox_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;default\&quot;     },     \&quot;production_endpoints\&quot;:{        \&quot;url\&quot;:\&quot;default\&quot;     }   } 
    * @return endpointConfig
   **/
-  @ApiModelProperty(example = "{\"endpoint_type\":\"http\",\"sandbox_endpoints\":{\"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/\"},\"production_endpoints\":{\"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/\"}}", value = "Endpoint configuration of the API. This can be used to provide different types of endpoints including Simple REST Endpoints, Loadbalanced and Failover.  `Simple REST Endpoint`   {     \"endpoint_type\": \"http\",     \"sandbox_endpoints\":       {        \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/\"     },     \"production_endpoints\":       {        \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/\"     }   }  `Loadbalanced Endpoint`    {     \"endpoint_type\": \"load_balance\",     \"algoCombo\": \"org.apache.synapse.endpoints.algorithms.RoundRobin\",     \"sessionManagement\": \"\",     \"sandbox_endpoints\":       [                 {           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/1\"        },                 {           \"endpoint_type\": \"http\",           \"template_not_supported\": false,           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/2\"        }     ],     \"production_endpoints\":       [                 {           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/3\"        },                 {           \"endpoint_type\": \"http\",           \"template_not_supported\": false,           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/4\"        }     ],     \"sessionTimeOut\": \"\",     \"algoClassName\": \"org.apache.synapse.endpoints.algorithms.RoundRobin\"   }  `Failover Endpoint`    {     \"production_failovers\":[        {           \"endpoint_type\":\"http\",           \"template_not_supported\":false,           \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/1\"        }     ],     \"endpoint_type\":\"failover\",     \"sandbox_endpoints\":{        \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/2\"     },     \"production_endpoints\":{        \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/3\"     },     \"sandbox_failovers\":[        {           \"endpoint_type\":\"http\",           \"template_not_supported\":false,           \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/4\"        }     ]   }  `Default Endpoint`    {     \"endpoint_type\":\"default\",     \"sandbox_endpoints\":{        \"url\":\"default\"     },     \"production_endpoints\":{        \"url\":\"default\"     }   }  `Endpoint from Endpoint Registry`   {     \"endpoint_type\": \"Registry\",     \"endpoint_id\": \"{registry-name:entry-name:version}\",   } ")
+  @ApiModelProperty(example = "{\"endpoint_type\":\"http\",\"sandbox_endpoints\":{\"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/\"},\"production_endpoints\":{\"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/\"}}", value = "Endpoint configuration of the API. This can be used to provide different types of endpoints including Simple REST Endpoints, Loadbalanced and Failover.  `Simple REST Endpoint`   {     \"endpoint_type\": \"http\",     \"sandbox_endpoints\":       {        \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/\"     },     \"production_endpoints\":       {        \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/\"     }   }  `Loadbalanced Endpoint`    {     \"endpoint_type\": \"load_balance\",     \"algoCombo\": \"org.apache.synapse.endpoints.algorithms.RoundRobin\",     \"sessionManagement\": \"\",     \"sandbox_endpoints\":       [                 {           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/1\"        },                 {           \"endpoint_type\": \"http\",           \"template_not_supported\": false,           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/2\"        }     ],     \"production_endpoints\":       [                 {           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/3\"        },                 {           \"endpoint_type\": \"http\",           \"template_not_supported\": false,           \"url\": \"https://localhost:9443/am/sample/pizzashack/v1/api/4\"        }     ],     \"sessionTimeOut\": \"\",     \"algoClassName\": \"org.apache.synapse.endpoints.algorithms.RoundRobin\"   }  `Failover Endpoint`    {     \"production_failovers\":[        {           \"endpoint_type\":\"http\",           \"template_not_supported\":false,           \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/1\"        }     ],     \"endpoint_type\":\"failover\",     \"sandbox_endpoints\":{        \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/2\"     },     \"production_endpoints\":{        \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/3\"     },     \"sandbox_failovers\":[        {           \"endpoint_type\":\"http\",           \"template_not_supported\":false,           \"url\":\"https://localhost:9443/am/sample/pizzashack/v1/api/4\"        }     ]   }  `Default Endpoint`    {     \"endpoint_type\":\"default\",     \"sandbox_endpoints\":{        \"url\":\"default\"     },     \"production_endpoints\":{        \"url\":\"default\"     }   } ")
   public Object getEndpointConfig() {
     return endpointConfig;
   }
@@ -1373,12 +1298,12 @@ public class APIDTO {
     this.endpointImplementationType = endpointImplementationType;
   }
 
-  public APIDTO scopes(List<APIScopeDTO> scopes) {
+  public APIDTO scopes(List<ScopeDTO> scopes) {
     this.scopes = scopes;
     return this;
   }
 
-  public APIDTO addScopesItem(APIScopeDTO scopesItem) {
+  public APIDTO addScopesItem(ScopeDTO scopesItem) {
     if (this.scopes == null) {
       this.scopes = new ArrayList<>();
     }
@@ -1391,11 +1316,11 @@ public class APIDTO {
    * @return scopes
   **/
   @ApiModelProperty(value = "")
-  public List<APIScopeDTO> getScopes() {
+  public List<ScopeDTO> getScopes() {
     return scopes;
   }
 
-  public void setScopes(List<APIScopeDTO> scopes) {
+  public void setScopes(List<ScopeDTO> scopes) {
     this.scopes = scopes;
   }
 
@@ -1469,24 +1394,6 @@ public class APIDTO {
     this.categories = categories;
   }
 
-  public APIDTO keyManagers(Object keyManagers) {
-    this.keyManagers = keyManagers;
-    return this;
-  }
-
-   /**
-   * API Key Managers 
-   * @return keyManagers
-  **/
-  @ApiModelProperty(value = "API Key Managers ")
-  public Object getKeyManagers() {
-    return keyManagers;
-  }
-
-  public void setKeyManagers(Object keyManagers) {
-    this.keyManagers = keyManagers;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -1506,14 +1413,12 @@ public class APIDTO {
         Objects.equals(this.lifeCycleStatus, API.lifeCycleStatus) &&
         Objects.equals(this.wsdlInfo, API.wsdlInfo) &&
         Objects.equals(this.wsdlUrl, API.wsdlUrl) &&
-        Objects.equals(this.testKey, API.testKey) &&
         Objects.equals(this.responseCachingEnabled, API.responseCachingEnabled) &&
         Objects.equals(this.cacheTimeout, API.cacheTimeout) &&
         Objects.equals(this.destinationStatsEnabled, API.destinationStatsEnabled) &&
         Objects.equals(this.hasThumbnail, API.hasThumbnail) &&
         Objects.equals(this.isDefaultVersion, API.isDefaultVersion) &&
         Objects.equals(this.enableSchemaValidation, API.enableSchemaValidation) &&
-        Objects.equals(this.enableStore, API.enableStore) &&
         Objects.equals(this.type, API.type) &&
         Objects.equals(this.transport, API.transport) &&
         Objects.equals(this.tags, API.tags) &&
@@ -1527,7 +1432,6 @@ public class APIDTO {
         Objects.equals(this.visibleTenants, API.visibleTenants) &&
         Objects.equals(this.endpointSecurity, API.endpointSecurity) &&
         Objects.equals(this.gatewayEnvironments, API.gatewayEnvironments) &&
-        Objects.equals(this.deploymentEnvironments, API.deploymentEnvironments) &&
         Objects.equals(this.labels, API.labels) &&
         Objects.equals(this.mediationPolicies, API.mediationPolicies) &&
         Objects.equals(this.subscriptionAvailability, API.subscriptionAvailability) &&
@@ -1546,13 +1450,12 @@ public class APIDTO {
         Objects.equals(this.scopes, API.scopes) &&
         Objects.equals(this.operations, API.operations) &&
         Objects.equals(this.threatProtectionPolicies, API.threatProtectionPolicies) &&
-        Objects.equals(this.categories, API.categories) &&
-        Objects.equals(this.keyManagers, API.keyManagers);
+        Objects.equals(this.categories, API.categories);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, context, version, provider, lifeCycleStatus, wsdlInfo, wsdlUrl, testKey, responseCachingEnabled, cacheTimeout, destinationStatsEnabled, hasThumbnail, isDefaultVersion, enableSchemaValidation, enableStore, type, transport, tags, policies, apiThrottlingPolicy, authorizationHeader, securityScheme, maxTps, visibility, visibleRoles, visibleTenants, endpointSecurity, gatewayEnvironments, deploymentEnvironments, labels, mediationPolicies, subscriptionAvailability, subscriptionAvailableTenants, additionalProperties, monetization, accessControl, accessControlRoles, businessInformation, corsConfiguration, workflowStatus, createdTime, lastUpdatedTime, endpointConfig, endpointImplementationType, scopes, operations, threatProtectionPolicies, categories, keyManagers);
+    return Objects.hash(id, name, description, context, version, provider, lifeCycleStatus, wsdlInfo, wsdlUrl, responseCachingEnabled, cacheTimeout, destinationStatsEnabled, hasThumbnail, isDefaultVersion, enableSchemaValidation, type, transport, tags, policies, apiThrottlingPolicy, authorizationHeader, securityScheme, maxTps, visibility, visibleRoles, visibleTenants, endpointSecurity, gatewayEnvironments, labels, mediationPolicies, subscriptionAvailability, subscriptionAvailableTenants, additionalProperties, monetization, accessControl, accessControlRoles, businessInformation, corsConfiguration, workflowStatus, createdTime, lastUpdatedTime, endpointConfig, endpointImplementationType, scopes, operations, threatProtectionPolicies, categories);
   }
 
 
@@ -1570,14 +1473,12 @@ public class APIDTO {
     sb.append("    lifeCycleStatus: ").append(toIndentedString(lifeCycleStatus)).append("\n");
     sb.append("    wsdlInfo: ").append(toIndentedString(wsdlInfo)).append("\n");
     sb.append("    wsdlUrl: ").append(toIndentedString(wsdlUrl)).append("\n");
-    sb.append("    testKey: ").append(toIndentedString(testKey)).append("\n");
     sb.append("    responseCachingEnabled: ").append(toIndentedString(responseCachingEnabled)).append("\n");
     sb.append("    cacheTimeout: ").append(toIndentedString(cacheTimeout)).append("\n");
     sb.append("    destinationStatsEnabled: ").append(toIndentedString(destinationStatsEnabled)).append("\n");
     sb.append("    hasThumbnail: ").append(toIndentedString(hasThumbnail)).append("\n");
     sb.append("    isDefaultVersion: ").append(toIndentedString(isDefaultVersion)).append("\n");
     sb.append("    enableSchemaValidation: ").append(toIndentedString(enableSchemaValidation)).append("\n");
-    sb.append("    enableStore: ").append(toIndentedString(enableStore)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    transport: ").append(toIndentedString(transport)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
@@ -1591,7 +1492,6 @@ public class APIDTO {
     sb.append("    visibleTenants: ").append(toIndentedString(visibleTenants)).append("\n");
     sb.append("    endpointSecurity: ").append(toIndentedString(endpointSecurity)).append("\n");
     sb.append("    gatewayEnvironments: ").append(toIndentedString(gatewayEnvironments)).append("\n");
-    sb.append("    deploymentEnvironments: ").append(toIndentedString(deploymentEnvironments)).append("\n");
     sb.append("    labels: ").append(toIndentedString(labels)).append("\n");
     sb.append("    mediationPolicies: ").append(toIndentedString(mediationPolicies)).append("\n");
     sb.append("    subscriptionAvailability: ").append(toIndentedString(subscriptionAvailability)).append("\n");
@@ -1611,7 +1511,6 @@ public class APIDTO {
     sb.append("    operations: ").append(toIndentedString(operations)).append("\n");
     sb.append("    threatProtectionPolicies: ").append(toIndentedString(threatProtectionPolicies)).append("\n");
     sb.append("    categories: ").append(toIndentedString(categories)).append("\n");
-    sb.append("    keyManagers: ").append(toIndentedString(keyManagers)).append("\n");
     sb.append("}");
     return sb.toString();
   }

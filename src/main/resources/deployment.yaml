@@ -15,13 +15,13 @@
 # APIM Configuration Parameters
 com.rukspot.restclient:
   # hostname
-  dcrEndpoint: https://localhost:9443/client-registration/v0.17/register
+  dcrEndpoint: https://localhost:9443/client-registration/v0.16/register
   # hostname
   publisherEndpoint: https://localhost:9443/api/am/publisher/v1
   # hostname
   devPortalEndpoint: https://localhost:9443/api/am/store/v1
   # hostname
-  adminEndpoint: https://localhost:9443/api/am/admin/v0.17
+  adminEndpoint: https://localhost:9443/api/am/admin/v0.16
   # hostname
   tokenEndpoint: https://localhost:9443/oauth2/token
   # hostname
@@ -31,7 +31,7 @@ com.rukspot.restclient:
   # hostname
   wsEndpoint: ws://localhost:9099
   # hostname
-  amHome: /Users/rukshan/wso2/apim/3.2.0/testing/target/mysql/wso2am-3.2.0-SNAPSHOT
+  amHome: /Users/rukshan/wso2/apim/3.1.0/testing/wso2am-3.1.0
   # hostname
   appThrottlePolicy: 1PerMin
   # hostname
@@ -300,50 +300,50 @@ com.rukspot.restclient:
       - 7.1.0
       - 7.2.0
 
-  -
-    apiName: SimpleProduct
-    apiType: product
-    creator: pub1
-    publisher: pub1
-    subscriptions:
-      - appName: SimpleProduct
-        appPolicy: Unlimited
-        subscriber: sub1
-        users:
-          - user1
-          - user2
-    apiResources:
-      - apiName: default
-        version: 1.0.0
-        operations:
-          -
-            method: GET
-            security: true
-            template: /menu
-      - apiName: code_api
-        version: 4.0.0
-        operations:
-          -
-            method: GET
-            security: true
-            template: /{code}
-    testOperations:
-      - delay: 0
-        method: GET
-        template: /menu
-        times: 1
-      - delay: 0
-        method: GET
-        template: /201
-        times: 1
-      - delay: 0
-        method: GET
-        template: /401
-        times: 1
-      - delay: 0
-        method: GET
-        template: /501
-        times: 2
+#  -
+#    apiName: SimpleProduct
+#    apiType: product
+#    creator: pub1
+#    publisher: pub1
+#    subscriptions:
+#      - appName: SimpleProduct
+#        appPolicy: Unlimited
+#        subscriber: sub1
+#        users:
+#          - user1
+#          - user2
+#    apiResources:
+#      - apiName: default
+#        version: 1.0.0
+#        operations:
+#          -
+#            method: GET
+#            security: true
+#            template: /menu
+#      - apiName: code_api
+#        version: 4.0.0
+#        operations:
+#          -
+#            method: GET
+#            security: true
+#            template: /{code}
+#    testOperations:
+#      - delay: 0
+#        method: GET
+#        template: /menu
+#        times: 1
+#      - delay: 0
+#        method: GET
+#        template: /201
+#        times: 1
+#      - delay: 0
+#        method: GET
+#        template: /401
+#        times: 1
+#      - delay: 0
+#        method: GET
+#        template: /501
+#        times: 2
 
   testConfigs:
     tenants:

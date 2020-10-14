@@ -30,8 +30,8 @@ import java.util.Map;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APICorsConfigurationDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIMonetizationInfoDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.APIProductBusinessInformationDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIScopeDTO;
 import org.wso2.am.integration.clients.publisher.api.v1.dto.ProductAPIDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.ScopeDTO;
 
 /**
  * APIProductDTO
@@ -108,12 +108,6 @@ public class APIProductDTO {
 
   @SerializedName("enableSchemaValidation")
   private Boolean enableSchemaValidation = null;
-
-  @SerializedName("enableStore")
-  private Boolean enableStore = null;
-
-  @SerializedName("testKey")
-  private String testKey = null;
 
   @SerializedName("responseCachingEnabled")
   private Boolean responseCachingEnabled = null;
@@ -257,15 +251,15 @@ public class APIProductDTO {
   private List<String> securityScheme = null;
 
   /**
-   * The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.
+   * The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.
    */
   @JsonAdapter(SubscriptionAvailabilityEnum.Adapter.class)
   public enum SubscriptionAvailabilityEnum {
-    CURRENT_TENANT("CURRENT_TENANT"),
+    CURRENT_TENANT("current_tenant"),
     
-    ALL_TENANTS("ALL_TENANTS"),
+    ALL_TENANTS("all_tenants"),
     
-    SPECIFIC_TENANTS("SPECIFIC_TENANTS");
+    SPECIFIC_TENANTS("specific_tenants");
 
     private String value;
 
@@ -333,7 +327,7 @@ public class APIProductDTO {
   private List<ProductAPIDTO> apis = null;
 
   @SerializedName("scopes")
-  private List<APIScopeDTO> scopes = null;
+  private List<ScopeDTO> scopes = null;
 
   @SerializedName("categories")
   private List<String> categories = null;
@@ -480,42 +474,6 @@ public class APIProductDTO {
 
   public void setEnableSchemaValidation(Boolean enableSchemaValidation) {
     this.enableSchemaValidation = enableSchemaValidation;
-  }
-
-  public APIProductDTO enableStore(Boolean enableStore) {
-    this.enableStore = enableStore;
-    return this;
-  }
-
-   /**
-   * Get enableStore
-   * @return enableStore
-  **/
-  @ApiModelProperty(example = "true", value = "")
-  public Boolean isEnableStore() {
-    return enableStore;
-  }
-
-  public void setEnableStore(Boolean enableStore) {
-    this.enableStore = enableStore;
-  }
-
-  public APIProductDTO testKey(String testKey) {
-    this.testKey = testKey;
-    return this;
-  }
-
-   /**
-   * Get testKey
-   * @return testKey
-  **/
-  @ApiModelProperty(example = "8swdwj9080edejhj", value = "")
-  public String getTestKey() {
-    return testKey;
-  }
-
-  public void setTestKey(String testKey) {
-    this.testKey = testKey;
   }
 
   public APIProductDTO responseCachingEnabled(Boolean responseCachingEnabled) {
@@ -858,10 +816,10 @@ public class APIProductDTO {
   }
 
    /**
-   * The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.
+   * The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.
    * @return subscriptionAvailability
   **/
-  @ApiModelProperty(example = "CURRENT_TENANT", value = "The subscription availability. Accepts one of the following. CURRENT_TENANT, ALL_TENANTS or SPECIFIC_TENANTS.")
+  @ApiModelProperty(example = "current_tenant", value = "The subscription availability. Accepts one of the following. current_tenant, all_tenants or specific_tenants.")
   public SubscriptionAvailabilityEnum getSubscriptionAvailability() {
     return subscriptionAvailability;
   }
@@ -1038,12 +996,12 @@ public class APIProductDTO {
     this.apis = apis;
   }
 
-  public APIProductDTO scopes(List<APIScopeDTO> scopes) {
+  public APIProductDTO scopes(List<ScopeDTO> scopes) {
     this.scopes = scopes;
     return this;
   }
 
-  public APIProductDTO addScopesItem(APIScopeDTO scopesItem) {
+  public APIProductDTO addScopesItem(ScopeDTO scopesItem) {
     if (this.scopes == null) {
       this.scopes = new ArrayList<>();
     }
@@ -1056,11 +1014,11 @@ public class APIProductDTO {
    * @return scopes
   **/
   @ApiModelProperty(value = "")
-  public List<APIScopeDTO> getScopes() {
+  public List<ScopeDTO> getScopes() {
     return scopes;
   }
 
-  public void setScopes(List<APIScopeDTO> scopes) {
+  public void setScopes(List<ScopeDTO> scopes) {
     this.scopes = scopes;
   }
 
@@ -1108,8 +1066,6 @@ public class APIProductDTO {
         Objects.equals(this.hasThumbnail, apIProduct.hasThumbnail) &&
         Objects.equals(this.state, apIProduct.state) &&
         Objects.equals(this.enableSchemaValidation, apIProduct.enableSchemaValidation) &&
-        Objects.equals(this.enableStore, apIProduct.enableStore) &&
-        Objects.equals(this.testKey, apIProduct.testKey) &&
         Objects.equals(this.responseCachingEnabled, apIProduct.responseCachingEnabled) &&
         Objects.equals(this.cacheTimeout, apIProduct.cacheTimeout) &&
         Objects.equals(this.visibility, apIProduct.visibility) &&
@@ -1140,7 +1096,7 @@ public class APIProductDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, context, description, provider, hasThumbnail, state, enableSchemaValidation, enableStore, testKey, responseCachingEnabled, cacheTimeout, visibility, visibleRoles, visibleTenants, accessControl, accessControlRoles, gatewayEnvironments, apiType, transport, tags, policies, apiThrottlingPolicy, authorizationHeader, securityScheme, subscriptionAvailability, subscriptionAvailableTenants, additionalProperties, monetization, businessInformation, corsConfiguration, createdTime, lastUpdatedTime, apis, scopes, categories);
+    return Objects.hash(id, name, context, description, provider, hasThumbnail, state, enableSchemaValidation, responseCachingEnabled, cacheTimeout, visibility, visibleRoles, visibleTenants, accessControl, accessControlRoles, gatewayEnvironments, apiType, transport, tags, policies, apiThrottlingPolicy, authorizationHeader, securityScheme, subscriptionAvailability, subscriptionAvailableTenants, additionalProperties, monetization, businessInformation, corsConfiguration, createdTime, lastUpdatedTime, apis, scopes, categories);
   }
 
 
@@ -1157,8 +1113,6 @@ public class APIProductDTO {
     sb.append("    hasThumbnail: ").append(toIndentedString(hasThumbnail)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    enableSchemaValidation: ").append(toIndentedString(enableSchemaValidation)).append("\n");
-    sb.append("    enableStore: ").append(toIndentedString(enableStore)).append("\n");
-    sb.append("    testKey: ").append(toIndentedString(testKey)).append("\n");
     sb.append("    responseCachingEnabled: ").append(toIndentedString(responseCachingEnabled)).append("\n");
     sb.append("    cacheTimeout: ").append(toIndentedString(cacheTimeout)).append("\n");
     sb.append("    visibility: ").append(toIndentedString(visibility)).append("\n");

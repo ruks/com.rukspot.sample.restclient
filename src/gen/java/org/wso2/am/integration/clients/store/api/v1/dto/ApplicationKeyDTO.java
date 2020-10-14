@@ -32,12 +32,6 @@ import org.wso2.am.integration.clients.store.api.v1.dto.ApplicationTokenDTO;
  */
 
 public class ApplicationKeyDTO {
-  @SerializedName("keyMappingId")
-  private String keyMappingId = null;
-
-  @SerializedName("keyManager")
-  private String keyManager = null;
-
   @SerializedName("consumerKey")
   private String consumerKey = null;
 
@@ -110,43 +104,7 @@ public class ApplicationKeyDTO {
   private ApplicationTokenDTO token = null;
 
   @SerializedName("additionalProperties")
-  private Object additionalProperties = null;
-
-  public ApplicationKeyDTO keyMappingId(String keyMappingId) {
-    this.keyMappingId = keyMappingId;
-    return this;
-  }
-
-   /**
-   * Key Manager Mapping UUID
-   * @return keyMappingId
-  **/
-  @ApiModelProperty(value = "Key Manager Mapping UUID")
-  public String getKeyMappingId() {
-    return keyMappingId;
-  }
-
-  public void setKeyMappingId(String keyMappingId) {
-    this.keyMappingId = keyMappingId;
-  }
-
-  public ApplicationKeyDTO keyManager(String keyManager) {
-    this.keyManager = keyManager;
-    return this;
-  }
-
-   /**
-   * Key Manager Name
-   * @return keyManager
-  **/
-  @ApiModelProperty(value = "Key Manager Name")
-  public String getKeyManager() {
-    return keyManager;
-  }
-
-  public void setKeyManager(String keyManager) {
-    this.keyManager = keyManager;
-  }
+  private String additionalProperties = null;
 
   public ApplicationKeyDTO consumerKey(String consumerKey) {
     this.consumerKey = consumerKey;
@@ -300,7 +258,7 @@ public class ApplicationKeyDTO {
     this.token = token;
   }
 
-  public ApplicationKeyDTO additionalProperties(Object additionalProperties) {
+  public ApplicationKeyDTO additionalProperties(String additionalProperties) {
     this.additionalProperties = additionalProperties;
     return this;
   }
@@ -310,11 +268,11 @@ public class ApplicationKeyDTO {
    * @return additionalProperties
   **/
   @ApiModelProperty(value = "additionalProperties (if any).")
-  public Object getAdditionalProperties() {
+  public String getAdditionalProperties() {
     return additionalProperties;
   }
 
-  public void setAdditionalProperties(Object additionalProperties) {
+  public void setAdditionalProperties(String additionalProperties) {
     this.additionalProperties = additionalProperties;
   }
 
@@ -328,9 +286,7 @@ public class ApplicationKeyDTO {
       return false;
     }
     ApplicationKeyDTO applicationKey = (ApplicationKeyDTO) o;
-    return Objects.equals(this.keyMappingId, applicationKey.keyMappingId) &&
-        Objects.equals(this.keyManager, applicationKey.keyManager) &&
-        Objects.equals(this.consumerKey, applicationKey.consumerKey) &&
+    return Objects.equals(this.consumerKey, applicationKey.consumerKey) &&
         Objects.equals(this.consumerSecret, applicationKey.consumerSecret) &&
         Objects.equals(this.supportedGrantTypes, applicationKey.supportedGrantTypes) &&
         Objects.equals(this.callbackUrl, applicationKey.callbackUrl) &&
@@ -343,7 +299,7 @@ public class ApplicationKeyDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyMappingId, keyManager, consumerKey, consumerSecret, supportedGrantTypes, callbackUrl, keyState, keyType, groupId, token, additionalProperties);
+    return Objects.hash(consumerKey, consumerSecret, supportedGrantTypes, callbackUrl, keyState, keyType, groupId, token, additionalProperties);
   }
 
 
@@ -352,8 +308,6 @@ public class ApplicationKeyDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApplicationKeyDTO {\n");
     
-    sb.append("    keyMappingId: ").append(toIndentedString(keyMappingId)).append("\n");
-    sb.append("    keyManager: ").append(toIndentedString(keyManager)).append("\n");
     sb.append("    consumerKey: ").append(toIndentedString(consumerKey)).append("\n");
     sb.append("    consumerSecret: ").append(toIndentedString(consumerSecret)).append("\n");
     sb.append("    supportedGrantTypes: ").append(toIndentedString(supportedGrantTypes)).append("\n");

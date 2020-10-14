@@ -74,11 +74,7 @@ public class PublisherClient {
         apidto.setName(newName);
         apidto.setContext(newName);
         apidto.setProvider(provider);
-        try {
-            apidto = apIsApi.apisImportGraphqlSchemaPost("GraphQL", schema, new Gson().toJson(apidto), null);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        apidto = apIsApi.apisImportGraphqlSchemaPost("GraphQL", schema, new Gson().toJson(apidto), null);
         String lifeCycleCheckList = "Deprecate old versions after publishing the API:false,Requires re-subscription when publishing the API:false";
         lifecycleApi.apisChangeLifecyclePost("Publish", apidto.getId(), lifeCycleCheckList, null);
         return apidto;

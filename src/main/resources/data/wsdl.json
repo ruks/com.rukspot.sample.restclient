@@ -6,6 +6,7 @@
   "policies": [
     "Unlimited"
   ],
+  "subscriptionAvailability": "ALL_TENANTS",
   "endpointConfig": {
     "endpoint_type": "http",
     "sandbox_endpoints": {
@@ -14,7 +15,6 @@
     "endpoint_security": {
       "production": {
         "password": "admin",
-        "customParameters": "{}",
         "type": "BASIC",
         "enabled": true,
         "username": "admin"

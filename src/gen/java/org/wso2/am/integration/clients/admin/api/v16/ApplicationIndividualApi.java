@@ -1,6 +1,6 @@
 /*
  * WSO2 API Manager - Admin
- * This document specifies a **RESTful API** for WSO2 **API Manager** - Admin Portal. Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.5.176/components/apimgt/org.wso2.carbon.apimgt.rest.api.admin/src/main/resources/admin-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification.
+ * This document specifies a **RESTful API** for WSO2 **API Manager** - Admin Portal. Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.5.176/components/apimgt/org.wso2.carbon.apimgt.rest.api.admin/src/main/resources/admin-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification. 
  *
  * OpenAPI spec version: 0.16.0
  * Contact: architecture@wso2.com
@@ -116,17 +116,17 @@ public class ApplicationIndividualApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call exportApplicationsGetValidateBeforeCall(String appName, String appOwner, Boolean withKeys, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
+        
         // verify the required parameter 'appName' is set
         if (appName == null) {
             throw new ApiException("Missing the required parameter 'appName' when calling exportApplicationsGet(Async)");
         }
-
+        
         // verify the required parameter 'appOwner' is set
         if (appOwner == null) {
             throw new ApiException("Missing the required parameter 'appOwner' when calling exportApplicationsGet(Async)");
         }
-
+        
 
         com.squareup.okhttp.Call call = exportApplicationsGetCall(appName, appOwner, withKeys, progressListener, progressRequestListener);
         return call;
@@ -135,7 +135,7 @@ public class ApplicationIndividualApi {
 
     /**
      * Export an Application
-     * This operation can be used to export the details of a particular Application as a zip file.
+     * This operation can be used to export the details of a particular Application as a zip file. 
      * @param appName Application Name  (required)
      * @param appOwner Owner of the Application  (required)
      * @param withKeys Export application keys  (optional)
@@ -149,7 +149,7 @@ public class ApplicationIndividualApi {
 
     /**
      * Export an Application
-     * This operation can be used to export the details of a particular Application as a zip file.
+     * This operation can be used to export the details of a particular Application as a zip file. 
      * @param appName Application Name  (required)
      * @param appOwner Owner of the Application  (required)
      * @param withKeys Export application keys  (optional)
@@ -164,7 +164,7 @@ public class ApplicationIndividualApi {
 
     /**
      * Export an Application (asynchronously)
-     * This operation can be used to export the details of a particular Application as a zip file.
+     * This operation can be used to export the details of a particular Application as a zip file. 
      * @param appName Application Name  (required)
      * @param appOwner Owner of the Application  (required)
      * @param withKeys Export application keys  (optional)
@@ -202,7 +202,7 @@ public class ApplicationIndividualApi {
      * Build call for importApplicationsPost
      * @param file Zip archive consisting of exported Application Configuration.  (required)
      * @param preserveOwner Preserve Original Creator of the Application  (optional)
-     * @param skipSubscriptions Skip importing Subscription of the Application  (optional)
+     * @param skipSubscriptions Skip importing Subscriptions of the Application  (optional)
      * @param appOwner Expected Owner of the Application in the Import Environment  (optional)
      * @param skipApplicationKeys Skip importing Keys of the Application  (optional)
      * @param update Update if application exists  (optional)
@@ -266,12 +266,12 @@ public class ApplicationIndividualApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call importApplicationsPostValidateBeforeCall(File file, Boolean preserveOwner, Boolean skipSubscriptions, String appOwner, Boolean skipApplicationKeys, Boolean update, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
+        
         // verify the required parameter 'file' is set
         if (file == null) {
             throw new ApiException("Missing the required parameter 'file' when calling importApplicationsPost(Async)");
         }
-
+        
 
         com.squareup.okhttp.Call call = importApplicationsPostCall(file, preserveOwner, skipSubscriptions, appOwner, skipApplicationKeys, update, progressListener, progressRequestListener);
         return call;
@@ -280,10 +280,10 @@ public class ApplicationIndividualApi {
 
     /**
      * Import an Application
-     * This operation can be used to import an Application.
+     * This operation can be used to import an Application. 
      * @param file Zip archive consisting of exported Application Configuration.  (required)
      * @param preserveOwner Preserve Original Creator of the Application  (optional)
-     * @param skipSubscriptions Skip importing Subscription of the Application  (optional)
+     * @param skipSubscriptions Skip importing Subscriptions of the Application  (optional)
      * @param appOwner Expected Owner of the Application in the Import Environment  (optional)
      * @param skipApplicationKeys Skip importing Keys of the Application  (optional)
      * @param update Update if application exists  (optional)
@@ -297,10 +297,10 @@ public class ApplicationIndividualApi {
 
     /**
      * Import an Application
-     * This operation can be used to import an Application.
+     * This operation can be used to import an Application. 
      * @param file Zip archive consisting of exported Application Configuration.  (required)
      * @param preserveOwner Preserve Original Creator of the Application  (optional)
-     * @param skipSubscriptions Skip importing Subscription of the Application  (optional)
+     * @param skipSubscriptions Skip importing Subscriptions of the Application  (optional)
      * @param appOwner Expected Owner of the Application in the Import Environment  (optional)
      * @param skipApplicationKeys Skip importing Keys of the Application  (optional)
      * @param update Update if application exists  (optional)
@@ -315,10 +315,10 @@ public class ApplicationIndividualApi {
 
     /**
      * Import an Application (asynchronously)
-     * This operation can be used to import an Application.
+     * This operation can be used to import an Application. 
      * @param file Zip archive consisting of exported Application Configuration.  (required)
      * @param preserveOwner Preserve Original Creator of the Application  (optional)
-     * @param skipSubscriptions Skip importing Subscription of the Application  (optional)
+     * @param skipSubscriptions Skip importing Subscriptions of the Application  (optional)
      * @param appOwner Expected Owner of the Application in the Import Environment  (optional)
      * @param skipApplicationKeys Skip importing Keys of the Application  (optional)
      * @param update Update if application exists  (optional)

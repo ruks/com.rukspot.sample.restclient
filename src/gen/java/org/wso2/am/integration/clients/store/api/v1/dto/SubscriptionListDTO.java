@@ -1,6 +1,6 @@
 /*
  * WSO2 API Manager - Store
- * This document specifies a **RESTful API** for WSO2 **API Manager** - Store.  It is written with [swagger 2](http://swagger.io/).
+ * This document specifies a **RESTful API** for WSO2 **API Manager** - Store.  It is written with [swagger 2](http://swagger.io/). 
  *
  * OpenAPI spec version: v1.1
  * Contact: architecture@wso2.com
@@ -48,10 +48,10 @@ public class SubscriptionListDTO {
   }
 
    /**
-   * Number of Subscription returned.
+   * Number of Subscriptions returned. 
    * @return count
   **/
-  @ApiModelProperty(example = "1", value = "Number of Subscription returned. ")
+  @ApiModelProperty(example = "1", value = "Number of Subscriptions returned. ")
   public Integer getCount() {
     return count;
   }
@@ -129,7 +129,7 @@ public class SubscriptionListDTO {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SubscriptionListDTO {\n");
-
+    
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    list: ").append(toIndentedString(list)).append("\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");

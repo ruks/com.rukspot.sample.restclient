@@ -10,10 +10,5 @@
     "urn:ietf:params:oauth:grant-type:jwt-bearer"
   ],
   "callbackUrl": "",
-  "additionalProperties": {},
-  "keyManager": "Resident Key Manager",
-  "validityTime": 3600,
-  "scopes": [
-    "default"
-  ]
+  "validityTime": 3600
 }

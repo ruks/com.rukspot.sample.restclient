@@ -1504,7 +1504,7 @@ public class ApIsApi {
 
     /**
      * Import API Definition
-     * This operation can be used to create api from api definition.APIMgtDAOTest  API definition is GraphQL Schema 
+     * This operation can be used to create api from api definition.  API definition is GraphQL Schema 
      * @param type Definition type to upload (optional)
      * @param file Definition to uploads a file (optional)
      * @param additionalProperties Additional attributes specified as a stringified JSON with API&#39;s schema (optional)
@@ -1519,7 +1519,7 @@ public class ApIsApi {
 
     /**
      * Import API Definition
-     * This operation can be used to create api from api definition.APIMgtDAOTest  API definition is GraphQL Schema 
+     * This operation can be used to create api from api definition.  API definition is GraphQL Schema 
      * @param type Definition type to upload (optional)
      * @param file Definition to uploads a file (optional)
      * @param additionalProperties Additional attributes specified as a stringified JSON with API&#39;s schema (optional)
@@ -1535,7 +1535,7 @@ public class ApIsApi {
 
     /**
      * Import API Definition (asynchronously)
-     * This operation can be used to create api from api definition.APIMgtDAOTest  API definition is GraphQL Schema 
+     * This operation can be used to create api from api definition.  API definition is GraphQL Schema 
      * @param type Definition type to upload (optional)
      * @param file Definition to uploads a file (optional)
      * @param additionalProperties Additional attributes specified as a stringified JSON with API&#39;s schema (optional)

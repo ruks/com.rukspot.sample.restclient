@@ -81,9 +81,6 @@ public class ApplicationKeyGenerateRequestDTO {
   @SerializedName("keyType")
   private KeyTypeEnum keyType = null;
 
-  @SerializedName("keyManager")
-  private String keyManager = null;
-
   @SerializedName("grantTypesToBeSupported")
   private List<String> grantTypesToBeSupported = new ArrayList<>();
 
@@ -103,7 +100,7 @@ public class ApplicationKeyGenerateRequestDTO {
   private String clientSecret = null;
 
   @SerializedName("additionalProperties")
-  private Object additionalProperties = null;
+  private String additionalProperties = null;
 
   public ApplicationKeyGenerateRequestDTO keyType(KeyTypeEnum keyType) {
     this.keyType = keyType;
@@ -121,24 +118,6 @@ public class ApplicationKeyGenerateRequestDTO {
 
   public void setKeyType(KeyTypeEnum keyType) {
     this.keyType = keyType;
-  }
-
-  public ApplicationKeyGenerateRequestDTO keyManager(String keyManager) {
-    this.keyManager = keyManager;
-    return this;
-  }
-
-   /**
-   * key Manager to Generate Keys
-   * @return keyManager
-  **/
-  @ApiModelProperty(value = "key Manager to Generate Keys")
-  public String getKeyManager() {
-    return keyManager;
-  }
-
-  public void setKeyManager(String keyManager) {
-    this.keyManager = keyManager;
   }
 
   public ApplicationKeyGenerateRequestDTO grantTypesToBeSupported(List<String> grantTypesToBeSupported) {
@@ -262,7 +241,7 @@ public class ApplicationKeyGenerateRequestDTO {
     this.clientSecret = clientSecret;
   }
 
-  public ApplicationKeyGenerateRequestDTO additionalProperties(Object additionalProperties) {
+  public ApplicationKeyGenerateRequestDTO additionalProperties(String additionalProperties) {
     this.additionalProperties = additionalProperties;
     return this;
   }
@@ -271,12 +250,12 @@ public class ApplicationKeyGenerateRequestDTO {
    * Additional properties needed.
    * @return additionalProperties
   **/
-  @ApiModelProperty(example = "\"\"", value = "Additional properties needed.")
-  public Object getAdditionalProperties() {
+  @ApiModelProperty(example = "", value = "Additional properties needed.")
+  public String getAdditionalProperties() {
     return additionalProperties;
   }
 
-  public void setAdditionalProperties(Object additionalProperties) {
+  public void setAdditionalProperties(String additionalProperties) {
     this.additionalProperties = additionalProperties;
   }
 
@@ -291,7 +270,6 @@ public class ApplicationKeyGenerateRequestDTO {
     }
     ApplicationKeyGenerateRequestDTO applicationKeyGenerateRequest = (ApplicationKeyGenerateRequestDTO) o;
     return Objects.equals(this.keyType, applicationKeyGenerateRequest.keyType) &&
-        Objects.equals(this.keyManager, applicationKeyGenerateRequest.keyManager) &&
         Objects.equals(this.grantTypesToBeSupported, applicationKeyGenerateRequest.grantTypesToBeSupported) &&
         Objects.equals(this.callbackUrl, applicationKeyGenerateRequest.callbackUrl) &&
         Objects.equals(this.scopes, applicationKeyGenerateRequest.scopes) &&
@@ -303,7 +281,7 @@ public class ApplicationKeyGenerateRequestDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyType, keyManager, grantTypesToBeSupported, callbackUrl, scopes, validityTime, clientId, clientSecret, additionalProperties);
+    return Objects.hash(keyType, grantTypesToBeSupported, callbackUrl, scopes, validityTime, clientId, clientSecret, additionalProperties);
   }
 
 
@@ -313,7 +291,6 @@ public class ApplicationKeyGenerateRequestDTO {
     sb.append("class ApplicationKeyGenerateRequestDTO {\n");
     
     sb.append("    keyType: ").append(toIndentedString(keyType)).append("\n");
-    sb.append("    keyManager: ").append(toIndentedString(keyManager)).append("\n");
     sb.append("    grantTypesToBeSupported: ").append(toIndentedString(grantTypesToBeSupported)).append("\n");
     sb.append("    callbackUrl: ").append(toIndentedString(callbackUrl)).append("\n");
     sb.append("    scopes: ").append(toIndentedString(scopes)).append("\n");

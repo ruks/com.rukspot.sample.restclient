@@ -5,6 +5,7 @@
   "policies": [
     "Unlimited"
   ],
+  "subscriptionAvailability": "ALL_TENANTS",
   "endpointConfig": {
     "endpoint_type": "http",
     "sandbox_endpoints": {

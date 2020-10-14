@@ -181,7 +181,7 @@ public class TenantsApi {
     }
     /**
      * Build call for getTenantInfoByUsername
-     * @param username The state represents the current state of the tenant Supported states are [ active, inactive]  (required)
+     * @param username The state represents the current state of the tenant  Supported states are [ active, inactive]  (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -246,7 +246,7 @@ public class TenantsApi {
     /**
      * Get tenant id of the user 
      * This operation is to get tenant id of the provided user 
-     * @param username The state represents the current state of the tenant Supported states are [ active, inactive]  (required)
+     * @param username The state represents the current state of the tenant  Supported states are [ active, inactive]  (required)
      * @return TenantInfoDTO
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -258,7 +258,7 @@ public class TenantsApi {
     /**
      * Get tenant id of the user 
      * This operation is to get tenant id of the provided user 
-     * @param username The state represents the current state of the tenant Supported states are [ active, inactive]  (required)
+     * @param username The state represents the current state of the tenant  Supported states are [ active, inactive]  (required)
      * @return ApiResponse&lt;TenantInfoDTO&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -271,7 +271,7 @@ public class TenantsApi {
     /**
      * Get tenant id of the user  (asynchronously)
      * This operation is to get tenant id of the provided user 
-     * @param username The state represents the current state of the tenant Supported states are [ active, inactive]  (required)
+     * @param username The state represents the current state of the tenant  Supported states are [ active, inactive]  (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

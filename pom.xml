@@ -213,7 +213,7 @@
 <!--                        </goals>-->
 <!--                        <configuration>-->
 <!--                            <inputSpec>-->
-<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/master/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher.v1/src/main/resources/publisher-api.yaml-->
+<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.6.163/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher.v1/src/main/resources/publisher-api.yaml-->
 <!--                            </inputSpec>-->
 <!--                            <language>java</language>-->
 <!--                            <generateApiTests>false</generateApiTests>-->
@@ -238,7 +238,7 @@
 <!--                        </goals>-->
 <!--                        <configuration>-->
 <!--                            <inputSpec>-->
-<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/master/components/apimgt/org.wso2.carbon.apimgt.rest.api.store.v1/src/main/resources/store-api.yaml-->
+<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.6.163/components/apimgt/org.wso2.carbon.apimgt.rest.api.store.v1/src/main/resources/store-api.yaml-->
 <!--                            </inputSpec>-->
 <!--                            <language>java</language>-->
 <!--                            <generateApiTests>false</generateApiTests>-->
@@ -263,7 +263,7 @@
 <!--                        </goals>-->
 <!--                        <configuration>-->
 <!--                            <inputSpec>-->
-<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/master/components/apimgt/org.wso2.carbon.apimgt.rest.api.admin/src/main/resources/admin-api.yaml-->
+<!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.6.163/components/apimgt/org.wso2.carbon.apimgt.rest.api.admin/src/main/resources/admin-api.yaml-->
 <!--                            </inputSpec>-->
 <!--                            <language>java</language>-->
 <!--                            <generateApiTests>false</generateApiTests>-->
@@ -350,7 +350,7 @@
 
     <properties>
 <!--        <microservice.mainClass>org.example.service.Application</microservice.mainClass>-->
-        <carbon.apimgt.version>6.7.188</carbon.apimgt.version>
+        <carbon.apimgt.version>6.6.163</carbon.apimgt.version>
         <wso2.carbon.config.version>2.1.5</wso2.carbon.config.version>
 
         <jayway.jsonpath.orbit.version>2.4.0.wso2v2</jayway.jsonpath.orbit.version>

@@ -1,6 +1,6 @@
 /*
  * WSO2 API Manager - Publisher API
- * This specifies a **RESTful API** for WSO2 **API Manager** - Publisher.  Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.0.4/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher/src/main/resources/publisher-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification.
+ * This specifies a **RESTful API** for WSO2 **API Manager** - Publisher.  Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.0.4/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher/src/main/resources/publisher-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification. 
  *
  * OpenAPI spec version: v1.1
  * Contact: architecture@wso2.com
@@ -114,17 +114,17 @@ public class SubscriptionsApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call subscriptionsBlockSubscriptionPostValidateBeforeCall(String subscriptionId, String blockState, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
+        
         // verify the required parameter 'subscriptionId' is set
         if (subscriptionId == null) {
             throw new ApiException("Missing the required parameter 'subscriptionId' when calling subscriptionsBlockSubscriptionPost(Async)");
         }
-
+        
         // verify the required parameter 'blockState' is set
         if (blockState == null) {
             throw new ApiException("Missing the required parameter 'blockState' when calling subscriptionsBlockSubscriptionPost(Async)");
         }
-
+        
 
         com.squareup.okhttp.Call call = subscriptionsBlockSubscriptionPostCall(subscriptionId, blockState, ifMatch, progressListener, progressRequestListener);
         return call;
@@ -133,7 +133,7 @@ public class SubscriptionsApi {
 
     /**
      * Block a subscription
-     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only.
+     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only. 
      * @param subscriptionId Subscription Id  (required)
      * @param blockState Subscription block state.  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
@@ -145,7 +145,7 @@ public class SubscriptionsApi {
 
     /**
      * Block a subscription
-     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only.
+     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only. 
      * @param subscriptionId Subscription Id  (required)
      * @param blockState Subscription block state.  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
@@ -159,7 +159,7 @@ public class SubscriptionsApi {
 
     /**
      * Block a subscription (asynchronously)
-     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only.
+     * This operation can be used to block a subscription. Along with the request, &#x60;blockState&#x60; must be specified as a query parameter.  1. &#x60;BLOCKED&#x60; : Subscription is completely blocked for both Production and Sandbox environments. 2. &#x60;PROD_ONLY_BLOCKED&#x60; : Subscription is blocked for Production environment only. 
      * @param subscriptionId Subscription Id  (required)
      * @param blockState Subscription block state.  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
@@ -257,12 +257,12 @@ public class SubscriptionsApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call subscriptionsGetValidateBeforeCall(String apiId, Integer limit, Integer offset, String ifNoneMatch, String query, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
+        
         // verify the required parameter 'apiId' is set
         if (apiId == null) {
             throw new ApiException("Missing the required parameter 'apiId' when calling subscriptionsGet(Async)");
         }
-
+        
 
         com.squareup.okhttp.Call call = subscriptionsGetCall(apiId, limit, offset, ifNoneMatch, query, progressListener, progressRequestListener);
         return call;
@@ -270,8 +270,8 @@ public class SubscriptionsApi {
     }
 
     /**
-     * Get all Subscription
-     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60;
+     * Get all Subscriptions
+     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60; 
      * @param apiId **API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API I. Should be formatted as **provider-name-version**.  (required)
      * @param limit Maximum size of resource array to return.  (optional, default to 25)
      * @param offset Starting point within the complete list of items qualified.  (optional, default to 0)
@@ -286,8 +286,8 @@ public class SubscriptionsApi {
     }
 
     /**
-     * Get all Subscription
-     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60;
+     * Get all Subscriptions
+     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60; 
      * @param apiId **API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API I. Should be formatted as **provider-name-version**.  (required)
      * @param limit Maximum size of resource array to return.  (optional, default to 25)
      * @param offset Starting point within the complete list of items qualified.  (optional, default to 0)
@@ -303,8 +303,8 @@ public class SubscriptionsApi {
     }
 
     /**
-     * Get all Subscription (asynchronously)
-     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60;
+     * Get all Subscriptions (asynchronously)
+     * This operation can be used to retrieve a list of subscriptions of the user associated with the provided access token. This operation is capable of  1. Retrieving all subscriptions for the user&#39;s APIs. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions&#x60;  2. Retrieving subscriptions for a specific API. &#x60;GET https://127.0.0.1:9443/api/am/publisher/v1/subscriptions?apiId&#x3D;c43a325c-260b-4302-81cb-768eafaa3aed&#x60; 
      * @param apiId **API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API I. Should be formatted as **provider-name-version**.  (required)
      * @param limit Maximum size of resource array to return.  (optional, default to 25)
      * @param offset Starting point within the complete list of items qualified.  (optional, default to 0)
@@ -396,12 +396,12 @@ public class SubscriptionsApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call subscriptionsUnblockSubscriptionPostValidateBeforeCall(String subscriptionId, String ifMatch, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-
+        
         // verify the required parameter 'subscriptionId' is set
         if (subscriptionId == null) {
             throw new ApiException("Missing the required parameter 'subscriptionId' when calling subscriptionsUnblockSubscriptionPost(Async)");
         }
-
+        
 
         com.squareup.okhttp.Call call = subscriptionsUnblockSubscriptionPostCall(subscriptionId, ifMatch, progressListener, progressRequestListener);
         return call;
@@ -410,7 +410,7 @@ public class SubscriptionsApi {
 
     /**
      * Unblock a Subscription
-     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation.
+     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation. 
      * @param subscriptionId Subscription Id  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -421,7 +421,7 @@ public class SubscriptionsApi {
 
     /**
      * Unblock a Subscription
-     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation.
+     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation. 
      * @param subscriptionId Subscription Id  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
      * @return ApiResponse&lt;Void&gt;
@@ -434,7 +434,7 @@ public class SubscriptionsApi {
 
     /**
      * Unblock a Subscription (asynchronously)
-     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation.
+     * This operation can be used to unblock a subscription specifying the subscription Id. The subscription will be fully unblocked after performing this operation. 
      * @param subscriptionId Subscription Id  (required)
      * @param ifMatch Validator for conditional requests; based on ETag.  (optional)
      * @param callback The callback to be executed when the API call finishes

@@ -765,6 +765,7 @@
     "amznResourceName": null,
     "amznResourceTimeout": null
   }],
+  "subscriptionAvailability": "ALL_TENANTS",
   "endpointConfig": {
     "endpoint_type": "http",
     "sandbox_endpoints": {

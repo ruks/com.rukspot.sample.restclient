@@ -1,6 +1,6 @@
 /*
  * WSO2 API Manager - Publisher API
- * This specifies a **RESTful API** for WSO2 **API Manager** - Publisher.  Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.0.4/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher/src/main/resources/publisher-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification.
+ * This specifies a **RESTful API** for WSO2 **API Manager** - Publisher.  Please see [full swagger definition](https://raw.githubusercontent.com/wso2/carbon-apimgt/v6.0.4/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher/src/main/resources/publisher-api.yaml) of the API which is written using [swagger 2.0](http://swagger.io/) specification. 
  *
  * OpenAPI spec version: v1.1
  * Contact: architecture@wso2.com
@@ -48,10 +48,10 @@ public class SubscriptionListDTO {
   }
 
    /**
-   * Number of Subscription returned.
+   * Number of Subscriptions returned. 
    * @return count
   **/
-  @ApiModelProperty(example = "1", value = "Number of Subscription returned. ")
+  @ApiModelProperty(example = "1", value = "Number of Subscriptions returned. ")
   public Integer getCount() {
     return count;
   }
@@ -129,7 +129,7 @@ public class SubscriptionListDTO {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SubscriptionListDTO {\n");
-
+    
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
     sb.append("    list: ").append(toIndentedString(list)).append("\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
