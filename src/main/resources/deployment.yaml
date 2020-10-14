@@ -190,7 +190,7 @@ com.rukspot.restclient:
     subscriptions:
       - appName: code_app
         appPolicy: Unlimited
-        subscriber: sub1
+        subscriber: admin
         users:
           - user1
           - user3
@@ -212,7 +212,7 @@ com.rukspot.restclient:
         method: GET
         payload: null
         template: /501
-        times: 2
+        times: 10
     version:
       - 4.1.0
       - 4.2.0
@@ -348,7 +348,7 @@ com.rukspot.restclient:
   testConfigs:
     tenants:
     - carbon.super
-    - wso2.com
+#    - wso2.com
     throttlePolicy:
     - count: 1
       name: 1PerMin

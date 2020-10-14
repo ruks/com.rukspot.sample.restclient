@@ -2,7 +2,7 @@
   "name": "test",
   "throttlingPolicy": "10PerMin",
   "description": "",
-  "tokenType": "OAUTH",
+  "tokenType": "JWT",
   "groups": null,
   "attributes": {}
 }

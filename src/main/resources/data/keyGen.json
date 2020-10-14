@@ -6,7 +6,14 @@
     "password",
     "client_credentials",
     "iwa:ntlm",
+    "urn:ietf:params:oauth:grant-type:device_code",
     "urn:ietf:params:oauth:grant-type:jwt-bearer"
   ],
-  "callbackUrl": ""
+  "callbackUrl": "",
+  "additionalProperties": {},
+  "keyManager": "Resident Key Manager",
+  "validityTime": 3600,
+  "scopes": [
+    "default"
+  ]
 }

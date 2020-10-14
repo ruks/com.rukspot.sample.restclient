@@ -213,7 +213,6 @@
 <!--                        </goals>-->
 <!--                        <configuration>-->
 <!--                            <inputSpec>-->
-<!--&lt;!&ndash;                                https://raw.githubusercontent.com/wso2-support/carbon-apimgt/support-6.5.349/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher.v1/src/main/resources/publisher-api.yaml?token=AAKIN7WFLPG4FUQ75SOSUSC6IOZXC&ndash;&gt;-->
 <!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/master/components/apimgt/org.wso2.carbon.apimgt.rest.api.publisher.v1/src/main/resources/publisher-api.yaml-->
 <!--                            </inputSpec>-->
 <!--                            <language>java</language>-->
@@ -239,7 +238,6 @@
 <!--                        </goals>-->
 <!--                        <configuration>-->
 <!--                            <inputSpec>-->
-<!--&lt;!&ndash;                                https://raw.githubusercontent.com/wso2-support/carbon-apimgt/support-6.5.349/components/apimgt/org.wso2.carbon.apimgt.rest.api.store.v1/src/main/resources/store-api.yaml?token=AAKIN7VHQPDEFEL6SIN44R26IOZZ4&ndash;&gt;-->
 <!--                                https://raw.githubusercontent.com/wso2/carbon-apimgt/master/components/apimgt/org.wso2.carbon.apimgt.rest.api.store.v1/src/main/resources/store-api.yaml-->
 <!--                            </inputSpec>-->
 <!--                            <language>java</language>-->
@@ -352,7 +350,7 @@
 
     <properties>
 <!--        <microservice.mainClass>org.example.service.Application</microservice.mainClass>-->
-        <carbon.apimgt.version>6.6.163</carbon.apimgt.version>
+        <carbon.apimgt.version>6.7.188</carbon.apimgt.version>
         <wso2.carbon.config.version>2.1.5</wso2.carbon.config.version>
 
         <jayway.jsonpath.orbit.version>2.4.0.wso2v2</jayway.jsonpath.orbit.version>
